@@ -1,1 +1,2 @@
-# the-rust-book
+# TODO
+- Review chapter 4: Understanding Ownership

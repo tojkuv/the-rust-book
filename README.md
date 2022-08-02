@@ -1,6 +1,6 @@
 # Personal TODO
 
-- Read and code along chapter 6: Enums and Pattern Matching
+- Read and code along chapter 7: Enums and Pattern Matching
 
 # Resources
 

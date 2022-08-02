@@ -1,6 +1,7 @@
 // the scope of a reference starts at the declaration of the reference until the last time it is used
     // there can be multiple immutable references in the same scope
-    // if there is a mutable reference, it is the only reference that is allowed to be declared within the scope
+    // if there is a mutable reference, it is the only reference that is allowed to be declared within the references's 
+    // lifetime
 
 fn main() {
     let mut s1 = String::from("hello");

@@ -1,0 +1,1 @@
+/home/machine/Documents/GitHub/the-rust-book/restaurant/target/debug/restaurant: /home/machine/Documents/GitHub/the-rust-book/restaurant/src/lib.rs /home/machine/Documents/GitHub/the-rust-book/restaurant/src/main.rs

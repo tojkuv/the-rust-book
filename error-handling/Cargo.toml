@@ -1,0 +1,11 @@
+[package]
+name = "error-handling"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]
+# upon the `panic!`, the operating interface clears the call stack, instead of the program itself. shiftinig this action
+# to the operating interface makes the binary smaller, since the program no longer needs to complete such a complex task
+panic = 'abort' 
+
+[dependencies]

@@ -1,0 +1,1 @@
+/home/machine/Documents/GitHub/the-rust-book/generic-types-traits-lifetimes/target/debug/generic-types-traits-lifetimes: /home/machine/Documents/GitHub/the-rust-book/generic-types-traits-lifetimes/src/aggregator.rs /home/machine/Documents/GitHub/the-rust-book/generic-types-traits-lifetimes/src/main.rs

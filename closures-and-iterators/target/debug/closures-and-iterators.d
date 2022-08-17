@@ -1,0 +1,1 @@
+/home/machine/Documents/GitHub/the-rust-book/closures-and-iterators/target/debug/closures-and-iterators: /home/machine/Documents/GitHub/the-rust-book/closures-and-iterators/src/lib.rs /home/machine/Documents/GitHub/the-rust-book/closures-and-iterators/src/main.rs

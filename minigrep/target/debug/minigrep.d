@@ -1,0 +1,1 @@
+/home/machine/Documents/GitHub/the-rust-book/minigrep/target/debug/minigrep: /home/machine/Documents/GitHub/the-rust-book/minigrep/src/lib.rs /home/machine/Documents/GitHub/the-rust-book/minigrep/src/main.rs

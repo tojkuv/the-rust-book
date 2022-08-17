@@ -1,6 +1,6 @@
 # Personal TODO
 
-- Read and code along chapter 7: Enums and Pattern Matching
+- Read and review the rust book.
 
 # Resources
 

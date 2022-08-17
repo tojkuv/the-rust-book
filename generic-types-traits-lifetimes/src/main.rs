@@ -103,6 +103,30 @@ fn main() {
     };
 
     println!("New article available! {}", article.summarize());
+
+    let number_list = vec![34, 50, 25, 100, 65];
+
+    let result = largest(&number_list);
+    println!("The largest number is {}", result);
+
+    let char_list = vec!['y', 'm', 'a', 'q'];
+
+    let result1 = largest(&char_list);
+    println!("The largest number is {}", result);
+
+
+    let result;
+
+    let string1 = String::from("long string is long");
+
+    {
+        let string2 = String::from("xyz");
+        result = longest(string1.as_str(), string2.as_str());
+        // the line above will compile since the shortest lifetime of the arguments lives as long as the lifetime of
+        // the result value
+    }
+
+    println!("{}", result);
 }
        
 // // the `integer` and `float` variables in the main method monomorphize the generic enumaration `Option` into two
@@ -119,4 +143,34 @@ fn main() {
 //     None,
 // }
 
+// fn largest<T: PartialOrd + Clone>(list: &[T]) -> T {
+//     let mut largest = list[0].clone();
 
+//     for item in list {
+//         if *item > largest {
+//             largest = item.clone(); // copy not move so its ok
+//         }
+//     }
+
+//     largest
+// }
+
+fn largest<T: PartialOrd>(list: &[T]) -> &T {
+    let mut largest = &list[0];
+
+    for item in list { // item is an immutable reference to an element in list
+        if item > largest { // automatic derefencing is done by the compiler
+            largest = item;
+        }
+    }
+
+    largest
+}
+
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}

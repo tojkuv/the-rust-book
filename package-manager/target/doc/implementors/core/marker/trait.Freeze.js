@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["package_manager"] = [{"text":"impl Freeze for <a class=\"enum\" href=\"package_manager/art/kinds/enum.PrimaryColor.html\" title=\"enum package_manager::art::kinds::PrimaryColor\">PrimaryColor</a>","synthetic":true,"types":["package_manager::art::kinds::PrimaryColor"]},{"text":"impl Freeze for <a class=\"enum\" href=\"package_manager/art/kinds/enum.SecondaryColor.html\" title=\"enum package_manager::art::kinds::SecondaryColor\">SecondaryColor</a>","synthetic":true,"types":["package_manager::art::kinds::SecondaryColor"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

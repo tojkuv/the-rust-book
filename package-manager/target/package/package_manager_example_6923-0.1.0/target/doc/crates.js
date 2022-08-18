@@ -1,1 +1,0 @@
-window.ALL_CRATES = ["package_manager","package_manager_example_6923"];

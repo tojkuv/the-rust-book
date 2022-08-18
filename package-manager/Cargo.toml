@@ -1,9 +1,10 @@
 [package]
 name = "package_manager_example_6923"
-description = "This package contains example code from chapter 14 of the rust book"
-version = "0.1.0"
+version = "0.1.0" # MAJOR.MINOR.PATCH
 edition = "2021"
-licence = "GPL-3.0-or-later or MIT"
+description = "This package contains example code from chapter 14 of the rust book"
+license = "GPL-3.0-or-later or MIT"
+documentation = "https://docs.rs/package_manager_example_6923"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

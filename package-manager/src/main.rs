@@ -1,5 +1,5 @@
-use package_manager::art;
-use package_manager::art::PrimaryColor;
+use package_manager_example_6923::art;
+use package_manager_example_6923::art::PrimaryColor;
 
 fn main() {
     let red = PrimaryColor::Red;

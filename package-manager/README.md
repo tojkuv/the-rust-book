@@ -46,5 +46,3 @@ The style of doc comment `//!` adds documentation to the item that contains the 
 ### Exporting a Convenient Public API with `pub use`
 
 You can re-export items to make a public structure that's different from your private structure by using `pub use`. Re-exporting takes a public item in one location and makes it public in another location, as if it were defined in the other location instead.
-
-

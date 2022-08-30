@@ -1,0 +1,1 @@
+/home/machine/Documents/GitHub/the-rust-book/smart-pointer/target/debug/smart-pointer: /home/machine/Documents/GitHub/the-rust-book/smart-pointer/src/lib.rs /home/machine/Documents/GitHub/the-rust-book/smart-pointer/src/main.rs

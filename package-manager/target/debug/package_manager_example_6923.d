@@ -1,1 +1,0 @@
-/home/machine/Documents/GitHub/the-rust-book/package-manager/target/debug/package_manager_example_6923: /home/machine/Documents/GitHub/the-rust-book/package-manager/src/art.rs /home/machine/Documents/GitHub/the-rust-book/package-manager/src/lib.rs /home/machine/Documents/GitHub/the-rust-book/package-manager/src/main.rs

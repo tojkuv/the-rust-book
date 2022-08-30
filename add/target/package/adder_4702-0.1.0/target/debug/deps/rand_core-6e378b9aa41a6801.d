@@ -1,0 +1,12 @@
+/home/machine/Documents/GitHub/the-rust-book/add/target/package/adder_4702-0.1.0/target/debug/deps/rand_core-6e378b9aa41a6801.rmeta: /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/lib.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/block.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/error.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/impls.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/le.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/os.rs
+
+/home/machine/Documents/GitHub/the-rust-book/add/target/package/adder_4702-0.1.0/target/debug/deps/librand_core-6e378b9aa41a6801.rlib: /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/lib.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/block.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/error.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/impls.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/le.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/os.rs
+
+/home/machine/Documents/GitHub/the-rust-book/add/target/package/adder_4702-0.1.0/target/debug/deps/rand_core-6e378b9aa41a6801.d: /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/lib.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/block.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/error.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/impls.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/le.rs /home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/os.rs
+
+/home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/lib.rs:
+/home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/block.rs:
+/home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/error.rs:
+/home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/impls.rs:
+/home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/le.rs:
+/home/machine/.cargo/registry/src/github.com-1ecc6299db9ec823/rand_core-0.6.3/src/os.rs:

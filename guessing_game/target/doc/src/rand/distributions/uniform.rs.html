@@ -1780,7 +1780,7 @@
 <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Rng</span>, <span class="ident">RngCore</span>};
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>))]</span>
-<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span> <span class="comment">// rustc doesn&#39;t detect that this is actually used</span>
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">unused_imports</span>)]</span> <span class="comment">// rustc doesn&#39;_t detect that this is actually used</span>
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::distributions::utils::Float</span>;
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;simd_support&quot;</span>)]</span> <span class="kw">use</span> <span class="ident">packed_simd</span>::<span class="kw-2">*</span>;
@@ -2238,7 +2238,7 @@
 <span class="macro">macro_rules!</span> <span class="ident">uniform_simd_int_impl</span> {
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">unsigned</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">u_scalar</span>:<span class="ident">ident</span>) =&gt; {
         <span class="comment">// The &quot;pick the largest zone that can fit in an `u32`&quot; optimization</span>
-        <span class="comment">// is less useful here. Multiple lanes complicate things, we don&#39;t</span>
+        <span class="comment">// is less useful here. Multiple lanes complicate things, we don&#39;_t</span>
         <span class="comment">// know the PRNG&#39;s minimal output size, and casting to a larger vector</span>
         <span class="comment">// is generally a bad idea for SIMD performance. The user can still</span>
         <span class="comment">// implement it manually.</span>
@@ -2570,7 +2570,7 @@
                 <span class="comment">// overflowing into infinity when multiplying with scale</span>
                 <span class="kw">let</span> <span class="ident">value0_1</span> <span class="op">=</span> <span class="ident">value1_2</span> <span class="op">-</span> <span class="number">1.0</span>;
 
-                <span class="comment">// We don&#39;t use `f64::mul_add`, because it is not available with</span>
+                <span class="comment">// We don&#39;_t use `f64::mul_add`, because it is not available with</span>
                 <span class="comment">// `no_std`. Furthermore, it is slower for some targets (but</span>
                 <span class="comment">// faster for others). However, the order of multiplication and</span>
                 <span class="comment">// addition is important, because on some platforms (e.g. ARM)</span>
@@ -2896,7 +2896,7 @@
         <span class="kw">use</span> <span class="ident">core</span>::{<span class="ident">u16</span>, <span class="ident">u32</span>, <span class="ident">u64</span>, <span class="ident">u8</span>, <span class="ident">usize</span>};
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::test::rng</span>(<span class="number">251</span>);
-        <span class="macro">macro_rules!</span> <span class="ident">t</span> {
+        <span class="macro">macro_rules!</span> <span class="ident">_t</span> {
             (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">v</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">le</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">lt</span>:<span class="ident">expr</span>) =&gt; {{
                 <span class="kw">for</span> <span class="kw-2">&amp;</span>(<span class="ident">low</span>, <span class="ident">high</span>) <span class="kw">in</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">v</span>.<span class="ident">iter</span>() {
                     <span class="kw">let</span> <span class="ident">my_uniform</span> <span class="op">=</span> <span class="ident">Uniform::new</span>(<span class="ident">low</span>, <span class="ident">high</span>);
@@ -2937,7 +2937,7 @@
 
             <span class="comment">// scalar bulk</span>
             ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>:<span class="ident">ident</span>),<span class="kw-2">*</span>) =&gt; {{
-                $(<span class="macro">t!</span>(
+                $(<span class="macro">_t!</span>(
                     <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>,
                     [(<span class="number">0</span>, <span class="number">10</span>), (<span class="number">10</span>, <span class="number">127</span>), (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty::MIN</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty::MAX</span>)],
                     <span class="op">|</span><span class="ident">x</span>, <span class="ident">y</span><span class="op">|</span> <span class="ident">x</span> <span class="op">&lt;</span><span class="op">=</span> <span class="ident">y</span>,
@@ -2947,7 +2947,7 @@
 
             <span class="comment">// simd bulk</span>
             ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>:<span class="ident">ident</span>),<span class="op">*</span> =&gt; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">scalar</span>:<span class="ident">ident</span>) =&gt; {{
-                $(<span class="macro">t!</span>(
+                $(<span class="macro">_t!</span>(
                     <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>,
                     [
                         (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty::splat</span>(<span class="number">0</span>), <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty::splat</span>(<span class="number">10</span>)),
@@ -2959,18 +2959,18 @@
                 );)<span class="op">*</span>
             }};
         }
-        <span class="macro">t!</span>(<span class="ident">i8</span>, <span class="ident">i16</span>, <span class="ident">i32</span>, <span class="ident">i64</span>, <span class="ident">isize</span>, <span class="ident">u8</span>, <span class="ident">u16</span>, <span class="ident">u32</span>, <span class="ident">u64</span>, <span class="ident">usize</span>, <span class="ident">i128</span>, <span class="ident">u128</span>);
+        <span class="macro">_t!</span>(<span class="ident">i8</span>, <span class="ident">i16</span>, <span class="ident">i32</span>, <span class="ident">i64</span>, <span class="ident">isize</span>, <span class="ident">u8</span>, <span class="ident">u16</span>, <span class="ident">u32</span>, <span class="ident">u64</span>, <span class="ident">usize</span>, <span class="ident">i128</span>, <span class="ident">u128</span>);
 
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;simd_support&quot;</span>)]</span>
         {
-            <span class="macro">t!</span>(<span class="ident">u8x2</span>, <span class="ident">u8x4</span>, <span class="ident">u8x8</span>, <span class="ident">u8x16</span>, <span class="ident">u8x32</span>, <span class="ident">u8x64</span> =&gt; <span class="ident">u8</span>);
-            <span class="macro">t!</span>(<span class="ident">i8x2</span>, <span class="ident">i8x4</span>, <span class="ident">i8x8</span>, <span class="ident">i8x16</span>, <span class="ident">i8x32</span>, <span class="ident">i8x64</span> =&gt; <span class="ident">i8</span>);
-            <span class="macro">t!</span>(<span class="ident">u16x2</span>, <span class="ident">u16x4</span>, <span class="ident">u16x8</span>, <span class="ident">u16x16</span>, <span class="ident">u16x32</span> =&gt; <span class="ident">u16</span>);
-            <span class="macro">t!</span>(<span class="ident">i16x2</span>, <span class="ident">i16x4</span>, <span class="ident">i16x8</span>, <span class="ident">i16x16</span>, <span class="ident">i16x32</span> =&gt; <span class="ident">i16</span>);
-            <span class="macro">t!</span>(<span class="ident">u32x2</span>, <span class="ident">u32x4</span>, <span class="ident">u32x8</span>, <span class="ident">u32x16</span> =&gt; <span class="ident">u32</span>);
-            <span class="macro">t!</span>(<span class="ident">i32x2</span>, <span class="ident">i32x4</span>, <span class="ident">i32x8</span>, <span class="ident">i32x16</span> =&gt; <span class="ident">i32</span>);
-            <span class="macro">t!</span>(<span class="ident">u64x2</span>, <span class="ident">u64x4</span>, <span class="ident">u64x8</span> =&gt; <span class="ident">u64</span>);
-            <span class="macro">t!</span>(<span class="ident">i64x2</span>, <span class="ident">i64x4</span>, <span class="ident">i64x8</span> =&gt; <span class="ident">i64</span>);
+            <span class="macro">_t!</span>(<span class="ident">u8x2</span>, <span class="ident">u8x4</span>, <span class="ident">u8x8</span>, <span class="ident">u8x16</span>, <span class="ident">u8x32</span>, <span class="ident">u8x64</span> =&gt; <span class="ident">u8</span>);
+            <span class="macro">_t!</span>(<span class="ident">i8x2</span>, <span class="ident">i8x4</span>, <span class="ident">i8x8</span>, <span class="ident">i8x16</span>, <span class="ident">i8x32</span>, <span class="ident">i8x64</span> =&gt; <span class="ident">i8</span>);
+            <span class="macro">_t!</span>(<span class="ident">u16x2</span>, <span class="ident">u16x4</span>, <span class="ident">u16x8</span>, <span class="ident">u16x16</span>, <span class="ident">u16x32</span> =&gt; <span class="ident">u16</span>);
+            <span class="macro">_t!</span>(<span class="ident">i16x2</span>, <span class="ident">i16x4</span>, <span class="ident">i16x8</span>, <span class="ident">i16x16</span>, <span class="ident">i16x32</span> =&gt; <span class="ident">i16</span>);
+            <span class="macro">_t!</span>(<span class="ident">u32x2</span>, <span class="ident">u32x4</span>, <span class="ident">u32x8</span>, <span class="ident">u32x16</span> =&gt; <span class="ident">u32</span>);
+            <span class="macro">_t!</span>(<span class="ident">i32x2</span>, <span class="ident">i32x4</span>, <span class="ident">i32x8</span>, <span class="ident">i32x16</span> =&gt; <span class="ident">i32</span>);
+            <span class="macro">_t!</span>(<span class="ident">u64x2</span>, <span class="ident">u64x4</span>, <span class="ident">u64x8</span> =&gt; <span class="ident">u64</span>);
+            <span class="macro">_t!</span>(<span class="ident">i64x2</span>, <span class="ident">i64x4</span>, <span class="ident">i64x8</span> =&gt; <span class="ident">i64</span>);
         }
     }
 
@@ -3001,7 +3001,7 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident"><span class="kw">crate</span>::test::rng</span>(<span class="number">252</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">zero_rng</span> <span class="op">=</span> <span class="ident">StepRng::new</span>(<span class="number">0</span>, <span class="number">0</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">max_rng</span> <span class="op">=</span> <span class="ident">StepRng::new</span>(<span class="number">0xffff_ffff_ffff_ffff</span>, <span class="number">0</span>);
-        <span class="macro">macro_rules!</span> <span class="ident">t</span> {
+        <span class="macro">macro_rules!</span> <span class="ident">_t</span> {
             (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">f_scalar</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">bits_shifted</span>:<span class="ident">expr</span>) =&gt; {{
                 <span class="kw">let</span> <span class="ident">v</span>: <span class="kw-2">&amp;</span>[(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">f_scalar</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">f_scalar</span>)] <span class="op">=</span> <span class="kw-2">&amp;</span>[
                     (<span class="number">0.0</span>, <span class="number">100.0</span>),
@@ -3044,7 +3044,7 @@
                         <span class="macro">assert!</span>(<span class="ident">max_rng</span>.<span class="ident">sample</span>(<span class="ident">my_uniform</span>).<span class="ident">extract</span>(<span class="ident">lane</span>) <span class="op">&lt;</span> <span class="ident">high_scalar</span>);
                         <span class="macro">assert!</span>(<span class="ident">max_rng</span>.<span class="ident">sample</span>(<span class="ident">my_incl_uniform</span>).<span class="ident">extract</span>(<span class="ident">lane</span>) <span class="op">&lt;</span><span class="op">=</span> <span class="ident">high_scalar</span>);
 
-                        <span class="comment">// Don&#39;t run this test for really tiny differences between high and low</span>
+                        <span class="comment">// Don&#39;_t run this test for really tiny differences between high and low</span>
                         <span class="comment">// since for those rounding might result in selecting high for a very</span>
                         <span class="comment">// long time.</span>
                         <span class="kw">if</span> (<span class="ident">high_scalar</span> <span class="op">-</span> <span class="ident">low_scalar</span>) <span class="op">&gt;</span> <span class="number">0.0001</span> {
@@ -3078,17 +3078,17 @@
             }};
         }
 
-        <span class="macro">t!</span>(<span class="ident">f32</span>, <span class="ident">f32</span>, <span class="number">32</span> <span class="op">-</span> <span class="number">23</span>);
-        <span class="macro">t!</span>(<span class="ident">f64</span>, <span class="ident">f64</span>, <span class="number">64</span> <span class="op">-</span> <span class="number">52</span>);
+        <span class="macro">_t!</span>(<span class="ident">f32</span>, <span class="ident">f32</span>, <span class="number">32</span> <span class="op">-</span> <span class="number">23</span>);
+        <span class="macro">_t!</span>(<span class="ident">f64</span>, <span class="ident">f64</span>, <span class="number">64</span> <span class="op">-</span> <span class="number">52</span>);
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;simd_support&quot;</span>)]</span>
         {
-            <span class="macro">t!</span>(<span class="ident">f32x2</span>, <span class="ident">f32</span>, <span class="number">32</span> <span class="op">-</span> <span class="number">23</span>);
-            <span class="macro">t!</span>(<span class="ident">f32x4</span>, <span class="ident">f32</span>, <span class="number">32</span> <span class="op">-</span> <span class="number">23</span>);
-            <span class="macro">t!</span>(<span class="ident">f32x8</span>, <span class="ident">f32</span>, <span class="number">32</span> <span class="op">-</span> <span class="number">23</span>);
-            <span class="macro">t!</span>(<span class="ident">f32x16</span>, <span class="ident">f32</span>, <span class="number">32</span> <span class="op">-</span> <span class="number">23</span>);
-            <span class="macro">t!</span>(<span class="ident">f64x2</span>, <span class="ident">f64</span>, <span class="number">64</span> <span class="op">-</span> <span class="number">52</span>);
-            <span class="macro">t!</span>(<span class="ident">f64x4</span>, <span class="ident">f64</span>, <span class="number">64</span> <span class="op">-</span> <span class="number">52</span>);
-            <span class="macro">t!</span>(<span class="ident">f64x8</span>, <span class="ident">f64</span>, <span class="number">64</span> <span class="op">-</span> <span class="number">52</span>);
+            <span class="macro">_t!</span>(<span class="ident">f32x2</span>, <span class="ident">f32</span>, <span class="number">32</span> <span class="op">-</span> <span class="number">23</span>);
+            <span class="macro">_t!</span>(<span class="ident">f32x4</span>, <span class="ident">f32</span>, <span class="number">32</span> <span class="op">-</span> <span class="number">23</span>);
+            <span class="macro">_t!</span>(<span class="ident">f32x8</span>, <span class="ident">f32</span>, <span class="number">32</span> <span class="op">-</span> <span class="number">23</span>);
+            <span class="macro">_t!</span>(<span class="ident">f32x16</span>, <span class="ident">f32</span>, <span class="number">32</span> <span class="op">-</span> <span class="number">23</span>);
+            <span class="macro">_t!</span>(<span class="ident">f64x2</span>, <span class="ident">f64</span>, <span class="number">64</span> <span class="op">-</span> <span class="number">52</span>);
+            <span class="macro">_t!</span>(<span class="ident">f64x4</span>, <span class="ident">f64</span>, <span class="number">64</span> <span class="op">-</span> <span class="number">52</span>);
+            <span class="macro">_t!</span>(<span class="ident">f64x8</span>, <span class="ident">f64</span>, <span class="number">64</span> <span class="op">-</span> <span class="number">52</span>);
         }
     }
 
@@ -3119,7 +3119,7 @@
             <span class="ident">T::Sampler::sample_single</span>(<span class="ident">low</span>, <span class="ident">high</span>, <span class="kw-2">&amp;mut</span> <span class="ident">rng</span>);
         }
 
-        <span class="macro">macro_rules!</span> <span class="ident">t</span> {
+        <span class="macro">macro_rules!</span> <span class="ident">_t</span> {
             (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">f_scalar</span>:<span class="ident">ident</span>) =&gt; {{
                 <span class="kw">let</span> <span class="ident">v</span>: <span class="kw-2">&amp;</span>[(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">f_scalar</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">f_scalar</span>)] <span class="op">=</span> <span class="kw-2">&amp;</span>[
                     (<span class="ident">::std</span>::<span class="macro-nonterminal">$</span><span class="macro-nonterminal">f_scalar::NAN</span>, <span class="number">0.0</span>),
@@ -3152,17 +3152,17 @@
             }};
         }
 
-        <span class="macro">t!</span>(<span class="ident">f32</span>, <span class="ident">f32</span>);
-        <span class="macro">t!</span>(<span class="ident">f64</span>, <span class="ident">f64</span>);
+        <span class="macro">_t!</span>(<span class="ident">f32</span>, <span class="ident">f32</span>);
+        <span class="macro">_t!</span>(<span class="ident">f64</span>, <span class="ident">f64</span>);
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;simd_support&quot;</span>)]</span>
         {
-            <span class="macro">t!</span>(<span class="ident">f32x2</span>, <span class="ident">f32</span>);
-            <span class="macro">t!</span>(<span class="ident">f32x4</span>, <span class="ident">f32</span>);
-            <span class="macro">t!</span>(<span class="ident">f32x8</span>, <span class="ident">f32</span>);
-            <span class="macro">t!</span>(<span class="ident">f32x16</span>, <span class="ident">f32</span>);
-            <span class="macro">t!</span>(<span class="ident">f64x2</span>, <span class="ident">f64</span>);
-            <span class="macro">t!</span>(<span class="ident">f64x4</span>, <span class="ident">f64</span>);
-            <span class="macro">t!</span>(<span class="ident">f64x8</span>, <span class="ident">f64</span>);
+            <span class="macro">_t!</span>(<span class="ident">f32x2</span>, <span class="ident">f32</span>);
+            <span class="macro">_t!</span>(<span class="ident">f32x4</span>, <span class="ident">f32</span>);
+            <span class="macro">_t!</span>(<span class="ident">f32x8</span>, <span class="ident">f32</span>);
+            <span class="macro">_t!</span>(<span class="ident">f32x16</span>, <span class="ident">f32</span>);
+            <span class="macro">_t!</span>(<span class="ident">f64x2</span>, <span class="ident">f64</span>);
+            <span class="macro">_t!</span>(<span class="ident">f64x4</span>, <span class="ident">f64</span>);
+            <span class="macro">_t!</span>(<span class="ident">f64x8</span>, <span class="ident">f64</span>);
         }
     }
 

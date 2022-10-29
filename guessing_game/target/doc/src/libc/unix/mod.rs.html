@@ -1850,7 +1850,7 @@
     <span class="kw">if</span> <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">any</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;l4re&quot;</span>, <span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;espidf&quot;</span>))]</span> {
         <span class="comment">// required libraries for L4Re and the ESP-IDF framework are linked externally, ATM</span>
     } <span class="kw">else</span> <span class="kw">if</span> <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span> {
-        <span class="comment">// cargo build, don&#39;t pull in anything extra as the libstd dep</span>
+        <span class="comment">// cargo build, don&#39;_t pull in anything extra as the libstd dep</span>
         <span class="comment">// already pulls in all libs.</span>
     } <span class="kw">else</span> <span class="kw">if</span> <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;linux&quot;</span>,
                         <span class="ident">any</span>(<span class="ident">target_env</span> <span class="op">=</span> <span class="string">&quot;gnu&quot;</span>, <span class="ident">target_env</span> <span class="op">=</span> <span class="string">&quot;uclibc&quot;</span>),
@@ -1891,7 +1891,7 @@
     } <span class="kw">else</span> <span class="kw">if</span> <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;netbsd&quot;</span>,
                         <span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;rustc-dep-of-std&quot;</span>,
                         <span class="ident">target_vendor</span> <span class="op">=</span> <span class="string">&quot;rumprun&quot;</span>))]</span> {
-        <span class="comment">// Since we don&#39;t use -nodefaultlibs on Rumprun, libc is always pulled</span>
+        <span class="comment">// Since we don&#39;_t use -nodefaultlibs on Rumprun, libc is always pulled</span>
         <span class="comment">// in automatically by the linker. We avoid passing it explicitly, as it</span>
         <span class="comment">// causes some versions of binutils to crash with an assertion failure.</span>
         <span class="attribute">#[<span class="ident">link</span>(<span class="ident">name</span> <span class="op">=</span> <span class="string">&quot;m&quot;</span>)]</span>
@@ -2080,8 +2080,8 @@
         <span class="ident">link_name</span> <span class="op">=</span> <span class="string">&quot;strerror$UNIX2003&quot;</span>
     )]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">strerror</span>(<span class="ident">n</span>: <span class="ident">c_int</span>) -&gt; <span class="kw-2">*mut</span> <span class="ident">c_char</span>;
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">strtok</span>(<span class="ident">s</span>: <span class="kw-2">*mut</span> <span class="ident">c_char</span>, <span class="ident">t</span>: <span class="kw-2">*const</span> <span class="ident">c_char</span>) -&gt; <span class="kw-2">*mut</span> <span class="ident">c_char</span>;
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">strtok_r</span>(<span class="ident">s</span>: <span class="kw-2">*mut</span> <span class="ident">c_char</span>, <span class="ident">t</span>: <span class="kw-2">*const</span> <span class="ident">c_char</span>, <span class="ident">p</span>: <span class="kw-2">*mut</span> <span class="kw-2">*mut</span> <span class="ident">c_char</span>) -&gt; <span class="kw-2">*mut</span> <span class="ident">c_char</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">strtok</span>(<span class="ident">s</span>: <span class="kw-2">*mut</span> <span class="ident">c_char</span>, <span class="ident">_t</span>: <span class="kw-2">*const</span> <span class="ident">c_char</span>) -&gt; <span class="kw-2">*mut</span> <span class="ident">c_char</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">strtok_r</span>(<span class="ident">s</span>: <span class="kw-2">*mut</span> <span class="ident">c_char</span>, <span class="ident">_t</span>: <span class="kw-2">*const</span> <span class="ident">c_char</span>, <span class="ident">p</span>: <span class="kw-2">*mut</span> <span class="kw-2">*mut</span> <span class="ident">c_char</span>) -&gt; <span class="kw-2">*mut</span> <span class="ident">c_char</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">strxfrm</span>(<span class="ident">s</span>: <span class="kw-2">*mut</span> <span class="ident">c_char</span>, <span class="ident">ct</span>: <span class="kw-2">*const</span> <span class="ident">c_char</span>, <span class="ident">n</span>: <span class="ident">size_t</span>) -&gt; <span class="ident">size_t</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">strsignal</span>(<span class="ident">sig</span>: <span class="ident">c_int</span>) -&gt; <span class="kw-2">*mut</span> <span class="ident">c_char</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wcslen</span>(<span class="ident">buf</span>: <span class="kw-2">*const</span> <span class="ident">wchar_t</span>) -&gt; <span class="ident">size_t</span>;

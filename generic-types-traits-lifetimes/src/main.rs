@@ -7,7 +7,7 @@
 
 enum Option<T> {
     // the enumeration `Option` is generic over type `T`
-    
+
     // the `Some` variant holds one value of type `T`
     Some(T),
     // the `None` variant does not hold any values
@@ -16,7 +16,7 @@ enum Option<T> {
 
 enum Result<T, E> {
     // the enumeration `Result` is generic over type `T` and type `E`
-    
+
     // the `Ok` variant holds one value of type `T`
     Ok(T),
     // the `Err` variant holds one value of type `E`
@@ -43,11 +43,11 @@ struct Point<X1, Y1> {
 
 // impl<T> Point<T> {
 //     // `impl` implements generically over type `T` for the structure `Point` that is generic over type `T`. associated
-//     // functions defined within this scope can use the generic types defined by `impl`. do all the types represented by 
+//     // functions defined within this scope can use the generic types defined by `impl`. do all the types represented by
 //     //`T` have to be the same concrete type?. It's convention for the generic type of `impl` to share the same parameter
 //     // type name as the structure definition.
 //     fn x(self: &Self) -> &T {
-//         // 
+//         //
 //         &self.x
 //     }
 // }
@@ -73,16 +73,16 @@ impl<X1, Y1> Point<X1, Y1> {
 
 mod aggregator; // declares the module and rust will look for the module in 3 different places
 
-use crate::aggregator::{Summary, Tweet, NewsArticle}; // imports the spesified parts of the module for performance
+use crate::aggregator::{NewsArticle, Summary, Tweet}; // imports the spesified parts of the module for performance
 
 fn main() {
     let p1 = Point { x: 5, y: 10.4 };
     let p2 = Point { x: "Hello", y: 'c' };
-    
+
     let p3 = p1.mixup(p2);
-    
+
     println!("{}, {}", p3.x, p3.y);
-    
+
     let integer = Some(5);
     let float = Some(5.0);
 
@@ -114,21 +114,29 @@ fn main() {
     let result1 = largest(&char_list);
     println!("The largest number is {}", result);
 
-
-    let result;
+    // let result;
 
     let string1 = String::from("long string is long");
 
-    {
-        let string2 = String::from("xyz");
-        result = longest(string1.as_str(), string2.as_str());
-        // the line above will compile since the shortest lifetime of the arguments lives as long as the lifetime of
-        // the result value
-    }
+    // {
+    //     let string2 = String::from("xyz");
+    //     result = longest(string1.as_str(), string2.as_str());
+    //     // the line above will compile since the shortest lifetime of the arguments lives as long as the lifetime of
+    //     // the result value
+    // }
 
     println!("{}", result);
+
+    // advanced traits
+    let person = Human;
+    person.fly();
+
+    let person = Human;
+    Pilot::fly(&person);
+    Wizard::fly(&person);
+    person.fly();
 }
-       
+
 // // the `integer` and `float` variables in the main method monomorphize the generic enumaration `Option` into two
 // // concrete type enumerations derived from `Option` at compile-time to have zero-cost abstractions at run-time.
 // // the compiled `Option`enumeration gets transformed into the following two enumeration types:
@@ -158,8 +166,10 @@ fn main() {
 fn largest<T: PartialOrd>(list: &[T]) -> &T {
     let mut largest = &list[0];
 
-    for item in list { // item is an immutable reference to an element in list
-        if item > largest { // automatic derefencing is done by the compiler
+    for item in list {
+        // item is an immutable reference to an element in list
+        if item > largest {
+            // automatic referencing is done by the compiler
             largest = item;
         }
     }
@@ -172,5 +182,33 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
         x
     } else {
         y
+    }
+}
+
+trait Pilot {
+    fn fly(&self);
+}
+
+trait Wizard {
+    fn fly(&self);
+}
+
+struct Human;
+
+impl Pilot for Human {
+    fn fly(&self) {
+        println!("This is your captain speaking.");
+    }
+}
+
+impl Wizard for Human {
+    fn fly(&self) {
+        println!("Up!");
+    }
+}
+
+impl Human {
+    fn fly(&self) {
+        println!("*waving arms furiously*");
     }
 }

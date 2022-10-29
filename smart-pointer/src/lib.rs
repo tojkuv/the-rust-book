@@ -6,14 +6,14 @@ pub trait Messenger {
 }
 
 pub struct LimitTracker<'a, T: Messenger> {
-    messenger: &'a T,
+    messenger: usize,
     value: usize,
     max: usize,
 }
 
 impl<'a, T> LimitTracker<'a, T>
-where
-    T: Messenger,
+    where
+        T: Messenger,
 {
     pub fn new(messenger: &'a T, max: usize) -> LimitTracker<'a, T> {
         LimitTracker {
@@ -21,7 +21,7 @@ where
             value: 0,
             max,
         }
-    }   
+    }
 
     pub fn set_value(self: &mut Self, value: usize) {
         self.value = value;
@@ -70,7 +70,7 @@ mod tests {
         fn send(self: &Self, msg: &str) {
             // runtime error: two mutable references at runtime breaks the internal rules of the `RefCell` type
             // let mut one_borrow = self.sent_messages.borrow_mut();
-            
+
             self.sent_messages.borrow_mut().push(String::from(msg));
         }
     }
@@ -94,20 +94,20 @@ mod tests {
         });
 
         println!("leaf strong = {}, weak = {}", Rc::strong_count(&leaf), Rc::weak_count(&leaf));
-        
+
         {
             let branch = Rc::new(Node {
                 value: 5,
                 parent: RefCell::new(Weak::new()),
                 children: RefCell::new(vec![Rc::clone(&leaf)]),
             });
-            
+
             *leaf.parent.borrow_mut() = Rc::downgrade(&branch);
-            
+
             println!("branch strong = {}, weak = {}", Rc::strong_count(&branch), Rc::weak_count(&branch));
             println!("leaf strong = {}, weak = {}", Rc::strong_count(&leaf), Rc::weak_count(&leaf));
         }
-        
+
         println!("leaf strong = {}, weak = {}", Rc::strong_count(&leaf), Rc::weak_count(&leaf));
         println!("leaf parent = {:?}", leaf.parent.borrow().upgrade());
 
@@ -115,3 +115,5 @@ mod tests {
         assert_eq!(1, 1);
     }
 }
+
+ // TODO: review smart pointers

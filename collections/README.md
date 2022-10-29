@@ -15,7 +15,7 @@ That's 18 bytes and is how computers ultimately store this data. If we look at t
 ['न', 'म', 'स', '्', 'त', 'े']
 ```
 
-There are six `char` values here, but the fourth and sixth are not letters: they're diacritics that don't make sense on their own. Finally, if we look at them as grapheme clusters, we'd get what a person would call the four letters that make up the Hindi word:
+There are six `char` values here, but the fourth and sixth are not letters: they're diacritics that don'_t make sense on their own. Finally, if we look at them as grapheme clusters, we'd get what a person would call the four letters that make up the Hindi word:
 
 ```rust
 ["न", "म", "स्", "ते"]
@@ -23,7 +23,7 @@ There are six `char` values here, but the fourth and sixth are not letters: they
 
 Rust provides different ways of interpreting the raw string data that computers store so that each program can choose the interpretation it needs, no matter what human language the data is in.
 
-A final reason Rust doesn't allow us to index into a `String` to get a character iis that indexing operations are expected to always take constant time (O(1)). But it isn't possible to guarantee that performance with a `String`, because Rust would have to walk through the contents from the beginning to the index to determine how many valid characters there were.
+A final reason Rust doesn'_t allow us to index into a `String` to get a character iis that indexing operations are expected to always take constant time (O(1)). But it isn'_t possible to guarantee that performance with a `String`, because Rust would have to walk through the contents from the beginning to the index to determine how many valid characters there were.
 
 ### Slicing Strings
 
@@ -142,7 +142,7 @@ let mut scores: HashMap<_, _> =
 
 **Listing 8-21: Creating a hash map from a list of teams and a list of scores**
 
-The type annotation `HashMap<_,_>` is needed here becauuse it's possible to `collect` into many different data structures and Rust doesn't know which you want unelss you specify. For the parameters from the key and value types, however, we use underscoers, and Rust can infer the types that the hash map contains based on the typess of the data in the vectors. In Listing 8-21, the key type will be `String` and the value type will be `i32`, just as in Listing 8-20.
+The type annotation `HashMap<_,_>` is needed here becauuse it's possible to `collect` into many different data structures and Rust doesn'_t know which you want unelss you specify. For the parameters from the key and value types, however, we use underscoers, and Rust can infer the types that the hash map contains based on the typess of the data in the vectors. In Listing 8-21, the key type will be `String` and the value type will be `i32`, just as in Listing 8-20.
 
 ### Hash Maps and Ownership
 
@@ -162,9 +162,9 @@ map.insert(field_name, field_value);
 
 **Listing 8-22: Showing that keys and values are owned by the hash map once they're inserted**
 
-We aren't able to use the variables `field_name` and `field_value` after they've moved into the hash map with the call to `insert`.
+We aren'_t able to use the variables `field_name` and `field_value` after they've moved into the hash map with the call to `insert`.
 
-If we insert references to values into the hash map, the values won't be moved into the hash map. The values that the references point to must be valid for at least as long as the hash map is valid. We'll talk more about these issues in the "Validation References with Lifetimes" section in Chapter 10.
+If we insert references to values into the hash map, the values won'_t be moved into the hash map. The values that the references point to must be valid for at least as long as the hash map is valid. We'll talk more about these issues in the "Validation References with Lifetimes" section in Chapter 10.
 
 ### Accessing Values in a Hash Map
 
@@ -184,7 +184,7 @@ let score = scores.get(&team_name);
 
 **Listing 8-23: Accessing the score for the Blue team stored in the hash map**
 
-Here, `score` will have the value that's associated with the Blue team, and the result will be `Some(&10)`. The result is wrapped in `Some` because `get` returns an `Option<&V>`; if there's no value for that key in the hash map, `get` will return `None`. The program will need to handle the `Option` in one of the ways that we covered in Chapter 6.
+Here, `score` will have the value that's associated with the Blue team, and the result will be `Some(&10)`. The result is wrapped in `Some` because `get` returns an `Option<&V>`; if there's no value for that key in the hash map, `get` will return `_None`. The program will need to handle the `Option` in one of the ways that we covered in Chapter 6.
 
 We can iterate over each key/value pair in a hash map in a similar manner as we do with vectors, using a `for` loop:
 
@@ -210,7 +210,7 @@ Blue: 10
 
 ### Updating a Hash Map
 
-Although the number of key and value pairs is growable, each key can only have one value associated with it at a time. When you want to change the data in a hash map, you have to decide how to handle the case when a key already has a value assigned. You could replace the old value with the new value, completely disregarding the old value. You could keep the old value and ignore the new value, only adding the new value if the key *doesn't* already have a value. Or you could combine the old value and the new value. Let's look at how to do each of these!
+Although the number of key and value pairs is growable, each key can only have one value associated with it at a time. When you want to change the data in a hash map, you have to decide how to handle the case when a key already has a value assigned. You could replace the old value with the new value, completely disregarding the old value. You could keep the old value and ignore the new value, only adding the new value if the key *doesn'_t* already have a value. Or you could combine the old value and the new value. Let's look at how to do each of these!
 
 #### Overwritting a Value
 
@@ -233,7 +233,7 @@ This code will print `{"Blue": 25}`. The original value of `10` has been overwri
 
 #### Only Inserting a Value If the Key Has No Value
 
-It's common to check whether a particular key has a value and, if it doesn't, insert a value for it. Hash maps have a special API for this called `entry` that takes the key you want to check as a parameter. The return value of the `entry` method is an enum called `Entry` that represents a value that might or might not exist. Let's say we want tot check whether the key for the Yellow team has a vallue associated with it. If it doesn't, we want to insert the value 50, and the same for the Blue team. Using the `entry` API, the code looks like Listing 8-25.
+It's common to check whether a particular key has a value and, if it doesn'_t, insert a value for it. Hash maps have a special API for this called `entry` that takes the key you want to check as a parameter. The return value of the `entry` method is an enum called `Entry` that represents a value that might or might not exist. Let's say we want tot check whether the key for the Yellow team has a vallue associated with it. If it doesn'_t, we want to insert the value 50, and the same for the Blue team. Using the `entry` API, the code looks like Listing 8-25.
 
 ```rust
 use std::collections::HashMap;
@@ -251,7 +251,7 @@ println!("{:?}", scores);
 
 The `or_insert` method or `Entry` is defined to return a mutable reference to the value for the corresponding `Entry` key if that key exists, and if not, inserts the parameter as the new value for this key and returns a mutable reference to the new value. This technique is much cleaner than writing the logic ourselves and, in addition, plays more nicely with the borrow checker.
 
-Running the code in Listing 8-25 will print `{"Yellow": 50, "Blue": 10}`. The first call to `entry` will insert the key for the Yellow team with the value 50 because the Yellow team doesn't have a value already. The second call to `entry` will not change the hash map because the Blue team already has the value 10.
+Running the code in Listing 8-25 will print `{"Yellow": 50, "Blue": 10}`. The first call to `entry` will insert the key for the Yellow team with the value 50 because the Yellow team doesn'_t have a value already. The second call to `entry` will not change the hash map because the Blue team already has the value 10.
 
 #### Updating a Value Based on the Old Value
 
@@ -278,7 +278,7 @@ This code will print `{"word": 2, "hello": 1, "wonderful": 1)}`. The `split_whit
 
 #### Hashing Functions
 
-By default, `HashMap` uses a hashing function called `SipHash` that can provide resistance to Denial of Service (DoS) attacks involving hash tables[^1]. This is not the fastest hashing algorithm available, but the trade-off for better security that comes with the drop in performance is worth it. If you profile your code and find that the default hash function is too slow for your purposes, you can switch to another function by specifying a different hasher. A *hasher* is a type that implements the `BuildHasher` trait. We'll talk about traits and how to implement them in Chapter 10. You don't necessarily have to implement your own hasher from scratch; crates.io has libraries shared by other Rust users that provide hashers implementing many common hashing algorithms.
+By default, `HashMap` uses a hashing function called `SipHash` that can provide resistance to Denial of Service (DoS) attacks involving hash tables[^1]. This is not the fastest hashing algorithm available, but the trade-off for better security that comes with the drop in performance is worth it. If you profile your code and find that the default hash function is too slow for your purposes, you can switch to another function by specifying a different hasher. A *hasher* is a type that implements the `BuildHasher` trait. We'll talk about traits and how to implement them in Chapter 10. You don'_t necessarily have to implement your own hasher from scratch; crates.io has libraries shared by other Rust users that provide hashers implementing many common hashing algorithms.
 
 ### 
 

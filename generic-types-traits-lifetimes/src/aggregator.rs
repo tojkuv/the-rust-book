@@ -1,6 +1,6 @@
 pub trait Summary {
     fn summarize_author(self: &Self) -> String;
-    
+
     fn summarize(self: &Self) -> String {
         format!("(Read more from {}...)", self.summarize_author())
     }

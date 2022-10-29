@@ -85,7 +85,7 @@ This code prints `1 new tweet: horse_ebooks: of course, as you probably already 
 
 Other crates that depend on the `aggregator` crate can also bring the `Summary` trait into scope to implement `Summary` on their own types. One restriction to note is that we can implement a trait on a type only if at least one of the trait or the type is local to our crate. Foor example, we can implement standard library traits like `Display` onn a custom type like `Tweet` as part of our `aggregaor` crate functionality, because the type `Tweet` is local to our `aggregator` crate. We can also implement `Summary` on `Vec<T>` in our `aggregator` crate, because the trait `Summary` is local to our `aggregator` crate.
 
-But we can't implement external traits on external types. For example, we can't implement the `Display` trait on `Vec<T>` within our `aggregator` crate, because `Display` and `Vec<T>` are both defined in the standard library and aren't local to our `aggregator` crate. This restriction is part of a property called *coherence*, and more specifically the *orphan rule*, so named because the parent type is not present. This rule ensures that other people's code can't break your code and vice versa. Without the rule, two crates could implement the same trait for the same type, and Rust wouldn't know which implementation to use.
+But we can'_t implement external traits on external types. For example, we can'_t implement the `Display` trait on `Vec<T>` within our `aggregator` crate, because `Display` and `Vec<T>` are both defined in the standard library and aren'_t local to our `aggregator` crate. This restriction is part of a property called *coherence*, and more specifically the *orphan rule*, so named because the parent type is not present. This rule ensures that other people's code can'_t break your code and vice versa. Without the rule, two crates could implement the same trait for the same type, and Rust wouldn'_t know which implementation to use.
 
 ### Default Implementations
 
@@ -118,9 +118,9 @@ println!("New article available! {}", article.sumamrize());
 
 This code prints `New article available! (Read more...)`
 
-Creating a default implementation doesn't require us to change anything about the implementation of `Summary` on `Tweet` in Listing 10-13. The reason is that the syntax for overriding a default implementation is the same as the syntax for implementing a trait method that doesn't have a default implementation.
+Creating a default implementation doesn'_t require us to change anything about the implementation of `Summary` on `Tweet` in Listing 10-13. The reason is that the syntax for overriding a default implementation is the same as the syntax for implementing a trait method that doesn'_t have a default implementation.
 
-Default implementation can call other methods in the same trait, even if those other methods don't have a default implementation. In this way, a trait can provide a lot of useful functionality and only require implementors to specify a small part of it. For example, we could define the `Summary` trait to have a `summarize_author` method whose implementation is required, and then define a `summarize` method that has a default implementation that calls the `summarize_author` method:
+Default implementation can call other methods in the same trait, even if those other methods don'_t have a default implementation. In this way, a trait can provide a lot of useful functionality and only require implementors to specify a small part of it. For example, we could define the `Summary` trait to have a `summarize_author` method whose implementation is required, and then define a `summarize` method that has a default implementation that calls the `summarize_author` method:
 
 ```rust
 pub trait Summary {
@@ -157,7 +157,7 @@ println!("1 new tweet: {}", tweet.summarize());
 
 This code prints `1 new tweet: (Read more from @horse_ebooks...)`.
 
-Note that it isn't possible to call the default implementation from an overriding implementation of the same method.
+Note that it isn'_t possible to call the default implementation from an overriding implementation of the same method.
 
 ### Traits as Parameters
 
@@ -169,7 +169,7 @@ pub fn notify(item: &impl Summary) {
 }
 ```
 
-Instead of a concrete type for the `item` parameter, we specify the `impl` keyword and the trait name. This parameter accepts any type that implements the specified trait. In the body of `notify`, we can call any  methods on `item` that come from a `Summary` trait, such as `summarzie`. We can call `notify` and pass in any instance of `NewsArticle` or `Tweet`. Code that calls the function with any other type, such as a `String` or any `i32`, won't compile because those types don't implement `Summary`.
+Instead of a concrete type for the `item` parameter, we specify the `impl` keyword and the trait name. This parameter accepts any type that implements the specified trait. In the body of `notify`, we can call any  methods on `item` that come from a `Summary` trait, such as `summarzie`. We can call `notify` and pass in any instance of `NewsArticle` or `Tweet`. Code that calls the function with any other type, such as a `String` or any `i32`, won'_t compile because those types don'_t implement `Summary`.
 
 ### Trait Bound Syntax
 
@@ -218,13 +218,13 @@ With the two trait bounds specified, the body of `notify` can call `summarize` a
 Using too many trait bounds has its downsides. Each generic has its own trait bounds, so functions with multiple generic type parameters can contain lots of trait bound information between the function's name and its parameter list, making the function signature hard to read. for this reason, Rust has alternative syntax for specifying trait bounds inside a `where` clause after the function signature. So instead of writing this:
 
 ```rust
-fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u:  &U) -> i32 {}
+fn some_function<T: Display + Clone, U: Clone + Debug>(_t: &T, u:  &U) -> i32 {}
 ```
 
 we can use a `where` clause, like this:
 
 ```rust
-fn some_function<T, U>(t: &T, u: &U) -> i32 {
+fn some_function<T, U>(_t: &T, u: &U) -> i32 {
     where T: Display + Clone,
           U: Clone + Debug 
 }
@@ -249,11 +249,11 @@ fn returns_summarizable() -> impl Summary {
 }
 ```
 
-By using `impl Summary` for the return type, we specify that the `returns_summarizable` function returns some type that implements the `Summary` trait without naming the concrete type. In this case, `returns_summarizable` returns a `Tweet`, but the code calling this function doesn't need to know that.
+By using `impl Summary` for the return type, we specify that the `returns_summarizable` function returns some type that implements the `Summary` trait without naming the concrete type. In this case, `returns_summarizable` returns a `Tweet`, but the code calling this function doesn'_t need to know that.
 
 The ability to specify a return type only by the trait it implements is especially useful in the context of closures and iterators, which we cover in Chapter 13. Closures and iterators create types that only the compiler knows or types that are very long to  specify. The `impl Trait` syntax lets you concisely specify that a function returns some type that implements the `Iterator` trait without needing to write out a very long type.
 
-However, you can only use `impl Trait` if you're returining a single type. For example, this code that returns either a `NewsArticle` or a `Tweet` with the return specified as `impl Summary` wouldn't work:
+However, you can only use `impl Trait` if you're returining a single type. For example, this code that returns either a `NewsArticle` or a `Tweet` with the return specified as `impl Summary` wouldn'_t work:
 
 ```rust
 fn returns_summarizable(switch: bool) -> impl Summary {
@@ -281,7 +281,7 @@ fn returns_summarizable(switch: bool) -> impl Summary {
 }
 ```
 
-Returning either a `NewsArticle` or a `Tweet` isn't allowed due to restrictions around how the `impl Trait` syntax is implemented in the compiler. We'll cover how to write a function with this behavior in the "Using Trait Objects That Allow for Values of Different Types" section of Chapter 17.
+Returning either a `NewsArticle` or a `Tweet` isn'_t allowed due to restrictions around how the `impl Trait` syntax is implemented in the compiler. We'll cover how to write a function with this behavior in the "Using Trait Objects That Allow for Values of Different Types" section of Chapter 17.
 
 ### Fixing the `largest` Function with Trait Bounds
 
@@ -307,7 +307,7 @@ For more information about this error, try `rustc --explain E0369`.
 error: could not compile `chapter10` due to previous error
 ```
 
-In the body of `largest` we wanted to compare two values of type `T` using the greater than (`>`) operator. Because that operator is defined as a default method on the standard library trait `std::cmp::PartialOrd`, we need to specify `PartialOrd` in the trait bounds for `T` so the `largest` function can work on slices of any type that we can compare. We don't need to bring `PartialOrd` into scope because it's in the prelude. Change the signature of `largest` to look like this:
+In the body of `largest` we wanted to compare two values of type `T` using the greater than (`>`) operator. Because that operator is defined as a default method on the standard library trait `std::cmp::PartialOrd`, we need to specify `PartialOrd` in the trait bounds for `T` so the `largest` function can work on slices of any type that we can compare. We don'_t need to bring `PartialOrd` into scope because it's in the prelude. Change the signature of `largest` to look like this:
 
 ```rust
 fn largest<T: PartialOrd>(list: &[T]) -> T {}
@@ -343,7 +343,7 @@ For more information about an error, try `rustc --explain E0507`.
 error: could not compile `chapter10` due to 2 previous errors
 ```
 
-The key line in this error is `cannot move out of type [T], a non-copy slice`. With  our non-generic versions of the `largest` function, we were only  tying to find the largest `i32` or `char`. As discussed in the "Stack-Only Data: Copy" section in Chapter 4, types like `i32` and `char` that have a known size can be stored on the stack, so they implement the `Copy` trait. But when we made the `largest` function generic, it became possible for the `list` parameter to have types in it that don't implement the `Copy` trait. Consequently, we wouldn't be able to move the function implement the `ParticalOrd` *and* `Copy` traits, like `i32` and `char` do.
+The key line in this error is `cannot move out of type [T], a non-copy slice`. With  our non-generic versions of the `largest` function, we were only  tying to find the largest `i32` or `char`. As discussed in the "Stack-Only Data: Copy" section in Chapter 4, types like `i32` and `char` that have a known size can be stored on the stack, so they implement the `Copy` trait. But when we made the `largest` function generic, it became possible for the `list` parameter to have types in it that don'_t implement the `Copy` trait. Consequently, we wouldn'_t be able to move the function implement the `ParticalOrd` *and* `Copy` traits, like `i32` and `char` do.
 
 Filename: src/main.rs
 
@@ -375,9 +375,9 @@ fn main() {
 
 Listing 10-15: A working definition of the `largest` function that works on any generic type that implements the `PartialOrd` and `Copy` traits
 
-If we don't want to restrict the `largest` function to the types that implement the `Copy` trait, we could specify that `T` has the trait bound `Clone` instead of `Copy`. Then we could clone each value in the slice when we want to `largest` function to have ownership. Using the `clone` function means we're potentially making more heap allocations in the case of types that own heap data like `String`, and heap allocations can be slow if we're working with large amounts of data.
+If we don'_t want to restrict the `largest` function to the types that implement the `Copy` trait, we could specify that `T` has the trait bound `Clone` instead of `Copy`. Then we could clone each value in the slice when we want to `largest` function to have ownership. Using the `clone` function means we're potentially making more heap allocations in the case of types that own heap data like `String`, and heap allocations can be slow if we're working with large amounts of data.
 
-We could also implement `largest` by having the function return a reference to a `T` value in the slice. If we change the return type to `&T` instead of `T`, thereby changing the body of the function to return a reference, we wouldn't need the `Clone` or `Copy` trait bounds and w could avoid heap allocations. Try implementing these alternate solutions on your own! If you get stuck with errors having to do with lifetimes, keep reading: the "Validating References with Lifetimes" section coming up will explain, but lifetimes aren't require to solve these challanges.
+We could also implement `largest` by having the function return a reference to a `T` value in the slice. If we change the return type to `&T` instead of `T`, thereby changing the body of the function to return a reference, we wouldn'_t need the `Clone` or `Copy` trait bounds and w could avoid heap allocations. Try implementing these alternate solutions on your own! If you get stuck with errors having to do with lifetimes, keep reading: the "Validating References with Lifetimes" section coming up will explain, but lifetimes aren'_t require to solve these challanges.
 
 ### Using Trait Bounds to Conditionally Implement Methods
 
@@ -434,9 +434,9 @@ Trait and trait bounds let us write code that uses generic type parameters to re
 
 Lifetimes are another kind of generic that we've already been using. Rather than ensuring that a type has the behavior we want, lifetimes ensure that references are valid as long as we need them to be.
 
-One detail we didn't discuss in the "References and Borrowing" section in Chapter 4 is that every reference in Rust has a *lifetime*, which is the scope for which that reference is valid. Most of the time, lifetimes are implicit and inferred, just like most of the time, types are inferred. We only must annotate types when multiple types are possible. In a similar way, we must annotate lifetimes when the lifetimes of references could be related in a few different ways. Rust requires us to annotate the relationships using generic lifetime parameters to ensure the actual references used at runtime will definitely be valid.
+One detail we didn'_t discuss in the "References and Borrowing" section in Chapter 4 is that every reference in Rust has a *lifetime*, which is the scope for which that reference is valid. Most of the time, lifetimes are implicit and inferred, just like most of the time, types are inferred. We only must annotate types when multiple types are possible. In a similar way, we must annotate lifetimes when the lifetimes of references could be related in a few different ways. Rust requires us to annotate the relationships using generic lifetime parameters to ensure the actual references used at runtime will definitely be valid.
 
-Annotating lifetimes is not even a concept most other programming languages have, so this is going to fee unfamiliar. Although we won't cover lifetimes in their entirety in this chapter, we'll discuss common ways you might encounter lifetime syntax so you can get comfortable with the concept.
+Annotating lifetimes is not even a concept most other programming languages have, so this is going to fee unfamiliar. Although we won'_t cover lifetimes in their entirety in this chapter, we'll discuss common ways you might encounter lifetime syntax so you can get comfortable with the concept.
 
 ### Preventing Dangling References with Lifetimes
 
@@ -467,7 +467,7 @@ a compile-time error, which shows that Rust indeed does not allow null
 values.
 ```
 
-The outer scope declares a variable named `r` with no initial value, and the inner scope declares a variable named `x` with the initial value of 5. Inside the inner scope, we attempt to set the value of `r` as a reference to `x`. Then the inner scope ends, and we attempt to print the value in `r`. This code won't compile because the value `r` is referring to has gone out of scope before we try to use it. Here is the error message:
+The outer scope declares a variable named `r` with no initial value, and the inner scope declares a variable named `x` with the initial value of 5. Inside the inner scope, we attempt to set the value of `r` as a reference to `x`. Then the inner scope ends, and we attempt to print the value in `r`. This code won'_t compile because the value `r` is referring to has gone out of scope before we try to use it. Here is the error message:
 
 ```rust
 $ cargo run
@@ -487,7 +487,7 @@ For more information about this error, try `rustc --explain E0597`.
 error: could not compile `chapter10` due to previous error
 ```
 
-The variable `x` doesn't "live long enough." The reason is that `x` will be out of scope when the inner scope ends on line 7. But `r` is still valid for the outer scope; because its scope is larger, we say that it "lives longer." If Rust allowed this code to work, `r` wwould be referincing memory that was deallocated when `x` went out of scope, and anything we tried to do with `r` wouldn't work correctly. So how does Rust determine that this code is invalid? It uses a vorrow checker.
+The variable `x` doesn'_t "live long enough." The reason is that `x` will be out of scope when the inner scope ends on line 7. But `r` is still valid for the outer scope; because its scope is larger, we say that it "lives longer." If Rust allowed this code to work, `r` wwould be referincing memory that was deallocated when `x` went out of scope, and anything we tried to do with `r` wouldn'_t work correctly. So how does Rust determine that this code is invalid? It uses a vorrow checker.
 
 ### The Borrow Checker
 
@@ -508,9 +508,9 @@ fn main() {
 }
 ```
 
-Listing 10-18: Annotations of the lifetimes of `r` and `x`, named `'a` and `'b`. As you can see, the inner `'b` block is much smaller than the outer `'a` lifetime block. At compile time, Rust compares the size of the two lifetimes and sees that `r` has a lifetime of `'a` but that it refers to memory with a lifetime of `'b`. The program is rejected because `'b` is shorter than `'a`: the subject of the reference doesn't live as long as the reference.
+Listing 10-18: Annotations of the lifetimes of `r` and `x`, named `'a` and `'b`. As you can see, the inner `'b` block is much smaller than the outer `'a` lifetime block. At compile time, Rust compares the size of the two lifetimes and sees that `r` has a lifetime of `'a` but that it refers to memory with a lifetime of `'b`. The program is rejected because `'b` is shorter than `'a`: the subject of the reference doesn'_t live as long as the reference.
 
-Listing 10-19 fixes the code so it doesn't have a dangling reference and compiles without any errors.
+Listing 10-19 fixes the code so it doesn'_t have a dangling reference and compiles without any errors.
 
 ```rust
 fn main() {
@@ -549,9 +549,9 @@ fn main() {
 
 Listing 10-20: A `main` function that calls the `longest` function to find the longer of two string slices
 
-Note that we want the function to take string slices, which are references, rather than strings, because we don't want the `longest` function to take ownership of its parameters. Refer to the "String Slices as Parameters" section in Chapter 4 for more discussion about why the parameters we use in Listing 10-20 are the ones we waant.
+Note that we want the function to take string slices, which are references, rather than strings, because we don'_t want the `longest` function to take ownership of its parameters. Refer to the "String Slices as Parameters" section in Chapter 4 for more discussion about why the parameters we use in Listing 10-20 are the ones we waant.
 
-If we try to implement the `longest` function as shown in Listing 10-21, it won't compile.
+If we try to implement the `longest` function as shown in Listing 10-21, it won'_t compile.
 
 Filename: src/main.rs
 
@@ -589,13 +589,13 @@ For more information about this error, try `rustc --explain E0106`.
 error: could not compile  `chapter10` due to previous error
 ```
 
-The help text reveals that the return type needs a generic lifetime parameter on it because Rust can't tell whether the reference being returned refers to `x` or `y`. Actually, we don't know either, because the `if` block in the body of this function returns a reference to `x` and the `else` block returns a reference to `y`!
+The help text reveals that the return type needs a generic lifetime parameter on it because Rust can'_t tell whether the reference being returned refers to `x` or `y`. Actually, we don'_t know either, because the `if` block in the body of this function returns a reference to `x` and the `else` block returns a reference to `y`!
 
-When we're defining this function, we don't know the concrete values that will be passed into this function, so we don't know whether the `if` case or the `else` casee will execute. We also don't know the concrete lifetimes of the references that will be passed in, so we can't look at the scopes as we did in Listing 10-18 and 10-19 to determine whether the reference we return will always be valid. The borrow checker can't determine this either, because it doesn't know how the lifetimes of `x` and y` relate to the lifetime of the return value. To fix this error, we'll add generic lifetime parameters that define the relationship betwee the references so the borrow checker can perform its analysis.
+When we're defining this function, we don'_t know the concrete values that will be passed into this function, so we don'_t know whether the `if` case or the `else` casee will execute. We also don'_t know the concrete lifetimes of the references that will be passed in, so we can'_t look at the scopes as we did in Listing 10-18 and 10-19 to determine whether the reference we return will always be valid. The borrow checker can'_t determine this either, because it doesn'_t know how the lifetimes of `x` and y` relate to the lifetime of the return value. To fix this error, we'll add generic lifetime parameters that define the relationship betwee the references so the borrow checker can perform its analysis.
 
 ### Lifetime Annotation Syntax
 
-Lifetime anootations don't change how long any of the references live. Rather, they describe the relationship of the lifetimes of multiple references to each other without affecting the lifetimes. Just as functions can accept any type when the signature specifies a generic type parameter, functions can accept references with any lifetime by specifying a generic lifetime parameter.
+Lifetime anootations don'_t change how long any of the references live. Rather, they describe the relationship of the lifetimes of multiple references to each other without affecting the lifetimes. Just as functions can accept any type when the signature specifies a generic type parameter, functions can accept references with any lifetime by specifying a generic lifetime parameter.
 
 Lifetime annotations have a slightly unusual syntax: the names of lifetime parameters must start with an apostrophe (`'`) and are usually all lowercase and very short, like generic types. Most people use the name `'a` for the first lifetime annotation. We place lifetime parameter annotations after the `&` of aa reference, using a space to separate the annotation from the reference's type.
 
@@ -607,7 +607,7 @@ Here are some examples: a reference to an `i32` without a lifetime parameter, a 
 &'a mut i32     // a mutable reference with an explicit lifetime
 ```
 
-One lifetime annotation by itself doesn't have much meaning, because the annotations are meant to tell Rust how generic lifetime parameters of multiple references relate to each other. For example, let's say we have a function with the parameter `first` that is a reference to an `i32` with lifetime `'a`. The function also has another parameter named `second` that is another reference to an `i32` that also has the lifetime `'a`. The lifetime annotations indicate that the references `first` and `second` must both live as long as that generic lifetime.
+One lifetime annotation by itself doesn'_t have much meaning, because the annotations are meant to tell Rust how generic lifetime parameters of multiple references relate to each other. For example, let's say we have a function with the parameter `first` that is a reference to an `i32` with lifetime `'a`. The function also has another parameter named `second` that is another reference to an `i32` that also has the lifetime `'a`. The lifetime annotations indicate that the references `first` and `second` must both live as long as that generic lifetime.
 
 ### Lifetime Annotations in Function Signatures
 
@@ -631,7 +631,7 @@ This code should compile and produce the result we want when we use it with the 
 
 The function signature now tells Rust that for some lifetime `'a`, the function takes two parameters, both of which are string slices that live at least as long as lifetime `'a`. The function signature also tells Rust that the string slice returned from the function will live at least as long as lifetime `'a`. In practice, it means that the lifetime of the reference returned by the `longest` function is the same as the smaller of theh lifetimes of the references passed in. These relationships are what we want Rust to use when analyzing this code.
 
-Remember, when we specify the lifetime parameters in this function signature, we're not chaging the lifetimes of any values passed in or returned. Rather, we're specifying that the borrow checker should reject any values that don't adhere to theses constraints. Note that the `longest` function doesn't need to know exactly how long `x` and `y` will live, only that some scope can be substituted for `'a` that will satisfy this signature.
+Remember, when we specify the lifetime parameters in this function signature, we're not chaging the lifetimes of any values passed in or returned. Rather, we're specifying that the borrow checker should reject any values that don'_t adhere to theses constraints. Note that the `longest` function doesn'_t need to know exactly how long `x` and `y` will live, only that some scope can be substituted for `'a` that will satisfy this signature.
 
 When annotating lifetimes in functions, the annotations go in the function signature, not in the function body. The lifetime annotations become part of the contract of the function, much like the types in the signature. Having function signatures contain the lifetime contract means the analysis the Rust compiler does can be simpler. If there's a problem with the way a function is annotated or the way it is called, the compiler errors can point to the part of our code and the constraints more precisely. If, instead, the Rust compiler made more inferences about what we intended the relationships of the lifetimes to be, the compiler might only be able to point to the use of our code many steps away from the cause of the problem.
 
@@ -695,13 +695,13 @@ error: could not compile `chapter10` due to previous error
 
 The error shows that for `result` to be valid for the `println!` statement, `string2` would need to be valid until the end of the outer scope. Rust knows this because we annotated the lifetimes of the function parameters and return values using the same lifetime parameter `'a`.
 
-As humans, we can look at this code and see that `string1` is longer than `string2` and therefore `result` will contain a reference to `string1`. Because `string1` has not gone out of scope yet, a reference to `string1` will still be valid for the `println!` statement. However, the compiler can't see that the reference is valid in this case. We've told Rust that the lifetime of the reference returned by the `longest` function is the same as the smaller of the lifetimes of the references passed in. Therefore, the borrow checker disallows the code in Listing 10-24 as possibly having an invalid reference.
+As humans, we can look at this code and see that `string1` is longer than `string2` and therefore `result` will contain a reference to `string1`. Because `string1` has not gone out of scope yet, a reference to `string1` will still be valid for the `println!` statement. However, the compiler can'_t see that the reference is valid in this case. We've told Rust that the lifetime of the reference returned by the `longest` function is the same as the smaller of the lifetimes of the references passed in. Therefore, the borrow checker disallows the code in Listing 10-24 as possibly having an invalid reference.
 
 Try designing more experiments that vary the values and lieftimes of the references passed in to the `longest` function and how the returned reference is used. Make hypotheses about whether or not your experiments will pass the borrow checker before you compile; then check to see if you're right!
 
 ### Thinking in Terms of Lifetimes
 
-The way in which you need to specify lifetime parameters depends on what your function is doing. For example, if we changed the implementation of the `longest` function to always return the first parameter rather than the longest string slice, we wouldn't need to specify a lifetime on the `y` parameter. The following code will compile:
+The way in which you need to specify lifetime parameters depends on what your function is doing. For example, if we changed the implementation of the `longest` function to always return the first parameter rather than the longest string slice, we wouldn'_t need to specify a lifetime on the `y` parameter. The following code will compile:
 
 Filename: src/main.rs
 
@@ -713,7 +713,7 @@ fn longest<'a>(x: &'a str, y: &str) -> &'a str {
 
 We've specified a lifetime parameter `'a` for the parameter `x` and the return type, but not for the parameter `y`, because the lifetime of `y` does not have any relationship with the lifetime of `x` or the return value.
 
-When returning a reference from a function, the lifetime parameter for the return type needs to match the lifetime parameter for one of the parameters. If the reference returned does *not* refer to one of the parameters, it must refer to a value created within this function. However, this would be a dangling reference because the value will go out of scope at the end of the function. Consider thsi attempted implementation of the `longest` function that won't compile:
+When returning a reference from a function, the lifetime parameter for the return type needs to match the lifetime parameter for one of the parameters. If the reference returned does *not* refer to one of the parameters, it must refer to a value created within this function. However, this would be a dangling reference because the value will go out of scope at the end of the function. Consider thsi attempted implementation of the `longest` function that won'_t compile:
 
 Filename: src/main.rs
 
@@ -740,7 +740,7 @@ For more information about this error, try `rustc --explain E0515`.
 error: could not compile `chapter10` due to previous error
 ```
 
-The problem is that `result` goes out of scope and gets cleaned up at the end of the `longest` function. We're also trying to return a reference to `result` from the function. There is no way we can specify lifetime parameters that would change the dangling reference, and Rust won't let us create a dangling reference. In this case, the best fix would be to return an owned data type rather than a reference so the calling function is then responsible for cleaning up the value.
+The problem is that `result` goes out of scope and gets cleaned up at the end of the `longest` function. We're also trying to return a reference to `result` from the function. There is no way we can specify lifetime parameters that would change the dangling reference, and Rust won'_t let us create a dangling reference. In this case, the best fix would be to return an owned data type rather than a reference so the calling function is then responsible for cleaning up the value.
 
 Ultimately, lifetime syntax is about connecting the lifetime of various parameters and return values of functions. Once they're connected, Rust has enough information to allow memory-safe operations and disallow operations that would create dangling pointers or otherwise violate memory safety.
 
@@ -766,9 +766,9 @@ fn main() {
 
 Listing 10-25: A struct that holds a reference, so its definition needs a lifetime annotation
 
-Thsi struct has one field, `part`, that holds a string slice, which is a reference. As with generic data types, we declare the name of the generic lifetime parameter inside braces after the name of the struct so we can use the lifetime parameter in the body of the struct definition. This annotation means an instance of `ImportantExerpt` can't outlive the reference it holds in its `part` field.
+Thsi struct has one field, `part`, that holds a string slice, which is a reference. As with generic data types, we declare the name of the generic lifetime parameter inside braces after the name of the struct so we can use the lifetime parameter in the body of the struct definition. This annotation means an instance of `ImportantExerpt` can'_t outlive the reference it holds in its `part` field.
 
-The `main` function here creates an instance of the `ImportExcerpt` struct that holds a reference to the first sentence of the `String` owned by the variable `novel`. The data in `novel` exists before the `ImportantExerpt` instance is created. In addition, `novel` doesn't go out of scope until after the `ImportExcerpt` instance is created. In addition, `novel` doesn't go out of scope until after the `ImportantExcerpt` goes out of scope, so the reference in the `ImportantExerpt` instance is valid.
+The `main` function here creates an instance of the `ImportExcerpt` struct that holds a reference to the first sentence of the `String` owned by the variable `novel`. The data in `novel` exists before the `ImportantExerpt` instance is created. In addition, `novel` doesn'_t go out of scope until after the `ImportExcerpt` instance is created. In addition, `novel` doesn'_t go out of scope until after the `ImportantExcerpt` goes out of scope, so the reference in the `ImportantExerpt` instance is valid.
 
 ### Lifetime Elisions
 
@@ -792,23 +792,23 @@ fn first_word(s: &str) -> &str {
 
 Listing 10-26: A function we defined in Listing 4-9 that compiled without lifetime annotations, even though the parameter and return type are references
 
-The reason this function compiles without lifetime annotations is historical: in early versions (pre-1.0) of Rust, this code wound't have compiled because every reference needed an explicit lifetime. At that time, the function signature would have been written like this:
+The reason this function compiles without lifetime annotations is historical: in early versions (pre-1.0) of Rust, this code wound'_t have compiled because every reference needed an explicit lifetime. At that time, the function signature would have been written like this:
 
 ```rust
 fn first_word<'a>(s: &'s str) -> &'a str {}
 ```
 
-After writing a lot of Rust code, the Rust team found that Rust programmers were entering the same lifetime annotations over and over in particular situations. Theses situations were predictable and followed a few deterministic patterns. The developers programmed these patterns into the compiler's code so the borrow checker could infer the lifetimes in these situations and wouldn't need explicit annotations.
+After writing a lot of Rust code, the Rust team found that Rust programmers were entering the same lifetime annotations over and over in particular situations. Theses situations were predictable and followed a few deterministic patterns. The developers programmed these patterns into the compiler's code so the borrow checker could infer the lifetimes in these situations and wouldn'_t need explicit annotations.
 
 This piece of Rust history is relavent because it's possible that more deterministic pattens will emerge and be added to the compiler. In the future, even fewer lifetime annotations might be required.
 
-The patterns programmed into Rust's analysis of references are called the *lifetime elision rules*. These aren't rules for programmers to follow; they're a set of particular cases that the compiler will consider, and if your code fits these cases, you don't need to write the lifetimes explicitly.
+The patterns programmed into Rust's analysis of references are called the *lifetime elision rules*. These aren'_t rules for programmers to follow; they're a set of particular cases that the compiler will consider, and if your code fits these cases, you don'_t need to write the lifetimes explicitly.
 
-The elision rules don't provide full inference. If Rust deterministically applies the rules but there is still ambiguity as to what lifetimes the references have, the compiler won't guess what the lifetime of the remaining referencese should be. Instead of guessing, the compiler will give you an error that you can resolve by adding the lifetime annotations.
+The elision rules don'_t provide full inference. If Rust deterministically applies the rules but there is still ambiguity as to what lifetimes the references have, the compiler won'_t guess what the lifetime of the remaining referencese should be. Instead of guessing, the compiler will give you an error that you can resolve by adding the lifetime annotations.
 
 Lifetimes on a function or method parameters are called *input lifetimes*, and lifetimes on return values are called *output lifetimes*.
 
-The compiler uses three rules to figure out the lifetimes of the references when there aren't explicit annotations. The first rule applies to input lifetimes, and the second and third rules apply to output lifetimes. If the compiler gets to the end of the three rules and there are still references for which it can't  figure out lifetimes, the compiler will stop with an error These rules apply to `fn` definitions as well as `impl` blocks.
+The compiler uses three rules to figure out the lifetimes of the references when there aren'_t explicit annotations. The first rule applies to input lifetimes, and the second and third rules apply to output lifetimes. If the compiler gets to the end of the three rules and there are still references for which it can'_t  figure out lifetimes, the compiler will stop with an error These rules apply to `fn` definitions as well as `impl` blocks.
 
 The first rule is that the compiler assigns a lifetime parameter to each parameter that's a reference. In other words, a function with one parameter gets one lifetime parameter: `fn foo<'a, 'b>(x: &'a i32, y: &'a i32);` and so one.
 
@@ -848,9 +848,9 @@ Lets apply the first rule: each parameter gets its own lifetime. This time we ha
 fn longest<'a, 'b>(x: &'a str, y: &'b str) -> &str {}
 ```
 
-You can see that the second rule doesn't apply because there is more than one input lifetime. The third rule doesn't apply either, because `longest` is a function rather than a method, so none of the parameters are `self`. After working through all three rules, we stull haven't figured out what the return type's lifetime is. This is why we got an error trying to compile the code in Listing 10-21: the compiler worked through the lifetime elision rules but still cound't figure out all the lifetimes of the references in the signature.
+You can see that the second rule doesn'_t apply because there is more than one input lifetime. The third rule doesn'_t apply either, because `longest` is a function rather than a method, so none of the parameters are `self`. After working through all three rules, we stull haven'_t figured out what the return type's lifetime is. This is why we got an error trying to compile the code in Listing 10-21: the compiler worked through the lifetime elision rules but still cound'_t figure out all the lifetimes of the references in the signature.
 
-Because the thirdd rule really only applies in method signatures, we'll look at lifetimes in that context next to see why the third rule means we don't gave to annotate lifetimes in method signatures very often.
+Because the thirdd rule really only applies in method signatures, we'll look at lifetimes in that context next to see why the third rule means we don'_t gave to annotate lifetimes in method signatures very often.
 
 ### Lifetime Annotations in Mehtod Definitions
 
@@ -858,7 +858,7 @@ When we implement methods on a struct with lifetimes, we use the same syntax as 
 
 Lifetime names for struct fields always need to be declared after the `impl` keyword and then used after the strct's name, because those lifetimes are part of the struct's type.
 
-In method signatures inside the `impl` block, references might be tied to the lifetime of references in the struct's fields, or they might be independent. In addition, the lifetime elision rules often make it so that lifetime annotations aren't necessary in method signatures. Let's look at some examples using the struct named `ImportantExcerpt` that we defined in Listing 10-25.
+In method signatures inside the `impl` block, references might be tied to the lifetime of references in the struct's fields, or they might be independent. In addition, the lifetime elision rules often make it so that lifetime annotations aren'_t necessary in method signatures. Let's look at some examples using the struct named `ImportantExcerpt` that we defined in Listing 10-25.
 
 First, we'll use a method named `level` whose only parameter is a reference to `self` and whose return value is an `i32`, which is not a reference to anything:
 
@@ -923,6 +923,6 @@ This is the `longest` function from Listing 10-22 that returns the longer of two
 
 ### Summary
 
-We covered a lot in this chapter! Now that you know about generic type parameters, traits and trait bounds, and generic lifetime parameters, you're ready to write code without repetition that works in many different situations. Generic type parameters let you apply the code to different types. Trait and trait bounds ensure that even though the types are generic, they'll have the behavior the code needs. You learned how to use lifetime annotations to ensure that this flexible code won't have any dangling references. And all of this analysis happens at compile time, which doesn't affect runtime performance!
+We covered a lot in this chapter! Now that you know about generic type parameters, traits and trait bounds, and generic lifetime parameters, you're ready to write code without repetition that works in many different situations. Generic type parameters let you apply the code to different types. Trait and trait bounds ensure that even though the types are generic, they'll have the behavior the code needs. You learned how to use lifetime annotations to ensure that this flexible code won'_t have any dangling references. And all of this analysis happens at compile time, which doesn'_t affect runtime performance!
 
 Believe it or not, there is much more to learn on the topics we discussed in this chapterr: Chapter 17 discusses trait objects, which are another way to use traits. There are also more complex scenarios involving lifetime annotations that you will only need in very advanced scenarios; for those, you can make sure your code is working the way it should.

@@ -86,7 +86,7 @@ seeded. This can take anywhere from a few seconds to more than a minute.
 A few (Linux, NetBSD and Solaris) offer a choice between blocking and
 getting an error; in these cases, we always choose to block.</p>
 <p>On Linux (when the <code>getrandom</code> system call is not available), reading from
-<code>/dev/urandom</code> never blocks, even when the OS hasn’t collected enough
+<code>/dev/urandom</code> never blocks, even when the OS hasn’_t collected enough
 entropy yet. To avoid returning low-entropy bytes, we first poll
 <code>/dev/random</code> and only switch to <code>/dev/urandom</code> once this has succeeded.</p>
 <h3 id="error-handling"><a href="#error-handling">Error handling</a></h3>

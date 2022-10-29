@@ -13,12 +13,12 @@ impl Config {
         
         let query = match args.next() {
             Some(arg) => arg,
-            None => return Err("Didn't get a query string"),
+            _None => return Err("Didn't get a query string"),
         };
 
         let file_path = match args.next() {
             Some(arg) => arg,
-            None => return Err("Didn't get a file path"),
+            _None => return Err("Didn't get a file path"),
         };
 
         let ignore_case = env::var("IGNORE_CASE").is_ok();
@@ -32,7 +32,7 @@ impl Config {
 }
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
-    // Box<dyn Error> is a type that implements the Error trait. `dyn` is short for dynammic
+    // Box<dyn Error> is a type that implements the Error trait. `dyn` is short for dynamic
     let contents = fs::read_to_string(config.file_path)?; // the error variant is returned to the calling code to handle
 
     let results = if config.ignore_case {
@@ -96,7 +96,7 @@ mod tests {
     #[test]
     fn case_sensitive() {
         let query = "duct";
-        // a `\` after the opening double qupte tells Rust not to put a newline character at the beginning of the
+        // a `\` after the opening double quote tells Rust not to put a newline character at the beginning of the
         // contents of this string literal
         let contents = "\
 Rust:
@@ -111,7 +111,7 @@ Duct tape.";
         let query = "rUsT";
         let contents = "\
 Rust:
-safe, fast, productuve.
+safe, fast, productive.
 Trust me.";
 
         assert_eq!(vec!["Rust:", "Trust me."], search_case_insensitive(&query, &contents));

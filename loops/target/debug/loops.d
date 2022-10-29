@@ -1,1 +1,1 @@
-/home/machine/Documents/Scratch/loops/target/debug/loops: /home/machine/Documents/Scratch/loops/src/main.rs
+/home/machine/Documents/GitHub/the-rust-book/loops/target/debug/loops: /home/machine/Documents/GitHub/the-rust-book/loops/src/main.rs

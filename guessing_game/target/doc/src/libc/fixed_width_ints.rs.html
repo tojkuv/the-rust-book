@@ -132,12 +132,12 @@
         <span class="comment">// Rust does not guarantee u128/i128 are sound for FFI, and its</span>
         <span class="comment">// definitions are in fact known to be incompatible. [0]</span>
         <span class="comment">//</span>
-        <span class="comment">// However these problems aren&#39;t fundamental, and are just platform</span>
+        <span class="comment">// However these problems aren&#39;_t fundamental, and are just platform</span>
         <span class="comment">// inconsistencies. Specifically at the time of this writing:</span>
         <span class="comment">//</span>
         <span class="comment">// * For x64 SysV ABIs (everything but Windows), the types are underaligned.</span>
-        <span class="comment">// * For all Windows ABIs, Microsoft doesn&#39;t actually officially define __int128,</span>
-        <span class="comment">//   and as a result different implementations don&#39;t actually agree on its ABI.</span>
+        <span class="comment">// * For all Windows ABIs, Microsoft doesn&#39;_t actually officially define __int128,</span>
+        <span class="comment">//   and as a result different implementations don&#39;_t actually agree on its ABI.</span>
         <span class="comment">//</span>
         <span class="comment">// But on the other major aarch64 platforms (android, linux, ios, macos) we have</span>
         <span class="comment">// validated that rustc has the right ABI for these types. This is important because</span>
@@ -177,12 +177,12 @@
                 <span class="kw">const</span> <span class="ident">_SIZE_128</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">16</span>;
                 <span class="kw">const</span> <span class="ident">_ALIGN_128</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">16</span>;
 
-                <span class="comment">// Since Rust doesn&#39;t officially guarantee that these types</span>
+                <span class="comment">// Since Rust doesn&#39;_t officially guarantee that these types</span>
                 <span class="comment">// have compatible ABIs, we const assert that these values have the</span>
                 <span class="comment">// known size/align of the target platform&#39;s libc. If rustc ever</span>
                 <span class="comment">// tries to regress things, it will cause a compilation error.</span>
                 <span class="comment">//</span>
-                <span class="comment">// This isn&#39;t a bullet-proof solution because e.g. it doesn&#39;t</span>
+                <span class="comment">// This isn&#39;_t a bullet-proof solution because e.g. it doesn&#39;_t</span>
                 <span class="comment">// catch the fact that llvm and gcc disagree on how x64 __int128</span>
                 <span class="comment">// is actually *passed* on the stack (clang underaligns it for</span>
                 <span class="comment">// the same reason that rustc *never* properly aligns it).</span>

@@ -58,9 +58,9 @@ fn main() {
 
 Here, we're attempting to access the 100th element of our vector (which is at index 99 because indexing starts at zero), but the vector has only 3 elements. In this situation, Rust will panic. Using `[]` is supposed to return an element, but if you pass an invalid index, there's no element that Rust could return here that would be correct.
 
-In C, attemppting to read beyond the end of a data strcuture is undefined behavior. You might get whatever is at the location in memory that would correspond to that element in the data structure, even though the memory doesn't belong to that structure. This is called a *buffer overread* and can lead to security vulnerabilities if an attacker is able to manupulate the index in such a way as to read data they shouldn't be allowed to that is stored after the data structure.
+In C, attemppting to read beyond the end of a data strcuture is undefined behavior. You might get whatever is at the location in memory that would correspond to that element in the data structure, even though the memory doesn'_t belong to that structure. This is called a *buffer overread* and can lead to security vulnerabilities if an attacker is able to manupulate the index in such a way as to read data they shouldn'_t be allowed to that is stored after the data structure.
 
-To protect your program from this sort of vulnerability, if you try to read an element at an index that doesn't exist, Rust will stop execution and refuse to continue. Let's try it and see:
+To protect your program from this sort of vulnerability, if you try to read an element at an index that doesn'_t exist, Rust will stop execution and refuse to continue. Let's try it and see:
 
 ```rust
 $ cargo run
@@ -110,13 +110,13 @@ note: Some details are omitted, run with `Rust_BACKTRACE=full` for a
 
 That's a lot of output! The exact output you see might be different depending on your operating system and Rust version. In order to get backtraces with this information, debug symbols must be enabled. Debug symbols are enabled by default when using `cargo build` or `cargo run` without the `--release` flag, as we have here.
 
-In the output in Listing 9-2, line 6 of the backtrace points to the line in our porject thhat's causing the problem: line 4 of *src/main.rs*. If we don't want our program to panic, we should start our investigation at the location pointed to by the first line metioning a file we wrtoe. In Listing 9-1, where we deliberately wrote code that would panic, the way to fix the panic is to not request an element beyond the range of the vector indexes. When your code panics in the future, you'll need to figure out what action the code is taking with what values to cause thhe panic and what the code should do isntead.
+In the output in Listing 9-2, line 6 of the backtrace points to the line in our porject thhat's causing the problem: line 4 of *src/main.rs*. If we don'_t want our program to panic, we should start our investigation at the location pointed to by the first line metioning a file we wrtoe. In Listing 9-1, where we deliberately wrote code that would panic, the way to fix the panic is to not request an element beyond the range of the vector indexes. When your code panics in the future, you'll need to figure out what action the code is taking with what values to cause thhe panic and what the code should do isntead.
 
 We'll come back to `panic!` and when we should and should not use `panic!` to handle error conditions in the ["To `panic!` or Not to `panic!`"]([To panic! or Not to panic! - The Rust Programming Language](https://doc.rust-lang.org/book/ch09-03-to-panic-or-not-to-panic.html#to-panic-or-not-to-panic)) section later in this chapter. Next we'll look at how to revover from an error using `Result`.
 
 ## Recoverable Errors with `Result`
 
-Most errors aren't serious enough to require the program to stop entirely. Sometimes, when a function fails, it's for a reason that you can easily interpret and respond to. For example, if you try to open a file and that operation fails because the file doesn't exist, you might want to create the file instead of terminating the process.
+Most errors aren'_t serious enough to require the program to stop entirely. Sometimes, when a function fails, it's for a reason that you can easily interpret and respond to. For example, if you try to open a file and that operation fails because the file doesn'_t exist, you might want to create the file instead of terminating the process.
 
 Recall the ["Handling Potential Failure with the `Result` Type"](https://doc.rust-lang.org/book/ch02-00-guessing-game-tutorial.html#handling-potential-failure-with-the-result-type) in Chapter 2 that the `Result` enum is defined as having two variants, `Ok` and `Err`, as follows:
 
@@ -143,7 +143,7 @@ fn main() {
 
 **Listing 9-3: Opening a file**
 
-How do we know `File::open` returns a `Result`? We could look at the [standard library API documentation](https://doc.rust-lang.org/std/fs/struct.File.html#method.open), or we could ask the compiler! If we give `f` a type annotation that we know is *not* the return type of the function and then try to compile the code, the compiler will tell us that the types don't match. The error message will then tell us what the type of `f` *is*. Let's try it! We know tha the return type of `File::open` isn't of type `u32`, so let's change the `let f` statement to this:
+How do we know `File::open` returns a `Result`? We could look at the [standard library API documentation](https://doc.rust-lang.org/std/fs/struct.File.html#method.open), or we could ask the compiler! If we give `f` a type annotation that we know is *not* the return type of the function and then try to compile the code, the compiler will tell us that the types don'_t match. The error message will then tell us what the type of `f` *is*. Let's try it! We know tha the return type of `File::open` isn'_t of type `u32`, so let's change the `let f` statement to this:
 
 ```rust
 let f: u32 = File::open("hello.txt");
@@ -193,7 +193,7 @@ fn main() {
 
 **Llisting 9-4: Using a `match` expression to handle the `Result` variants that might be returned**
 
-Note that, like the `Option` enum, the `Result` enum and its variants have been brought into scope by the prelude, so we don't need to specify `Result::` before the `Ok` and `Err` variants in the `match` arms.
+Note that, like the `Option` enum, the `Result` enum and its variants have been brought into scope by the prelude, so we don'_t need to specify `Result::` before the `Ok` and `Err` variants in the `match` arms.
 
 When the result is `Ok`, this code will return the inner `fille` value out of the `Ok` variant, and we then assign that file handle value to the variable `f`. After the `match`, we can use the file handle for reading or writing.
 
@@ -215,7 +215,7 @@ As usual, this output tells us exactly what has gone wrong.
 
 ### Matching on Different Errors
 
-The code in Listing 9-4 will `panic!` no matter why `File::open` failed. However, we want to take different actions for different failure reasons: if `File::open` failed because the file doesn't exist, we want to create the file and return the handle to the new file. If `File::open` failed for any other reason--for example, because we didn't have premission to open the file--we still want the code to `panic!` in the same way as it did in Listing 9-4. For this we add an inner `match` expression, shown in Listing 9-5.
+The code in Listing 9-4 will `panic!` no matter why `File::open` failed. However, we want to take different actions for different failure reasons: if `File::open` failed because the file doesn'_t exist, we want to create the file and return the handle to the new file. If `File::open` failed for any other reason--for example, because we didn'_t have premission to open the file--we still want the code to `panic!` in the same way as it did in Listing 9-4. For this we add an inner `match` expression, shown in Listing 9-5.
 
 Filename: src/main.rs
 
@@ -241,9 +241,9 @@ fn main() {
 
 **Listing 9-5: Handling different kinds of errors in different ways**
 
-The type of the value that `File::open` returns inside the `Err` variant is `io::Error`, which is a struct provided by the standard library. This struct has a method `kind` that we can call to get an `io::ErrorKind` value. The enum `io::ErrorKind` is provided by the standard library and has variants representing the different kinds of errors that might result from an `io` operation. The variant we want to use is `ErrorKind::NotFound`, which indicates the file we're truing to open doesn't eist yet. so we watch on `f`, but we also have an inner match on `error.kind()`.
+The type of the value that `File::open` returns inside the `Err` variant is `io::Error`, which is a struct provided by the standard library. This struct has a method `kind` that we can call to get an `io::ErrorKind` value. The enum `io::ErrorKind` is provided by the standard library and has variants representing the different kinds of errors that might result from an `io` operation. The variant we want to use is `ErrorKind::NotFound`, which indicates the file we're truing to open doesn'_t eist yet. so we watch on `f`, but we also have an inner match on `error.kind()`.
 
-The condition we want to check in the inner match is whether th value returned by `error.kind()` is the `NotFound` variant of the `ErrorKind` enum. If it is, we try to create the file with `File::create`. However, because `File::create` could also fail, we need a second arm in the inner `match` expression. When the file can't be created, a different error message is printed. the second arm of the outer `match` stays the same, so the program panics on any error besides the missing file error.
+The condition we want to check in the inner match is whether th value returned by `error.kind()` is the `NotFound` variant of the `ErrorKind` enum. If it is, we try to create the file with `File::create`. However, because `File::create` could also fail, we need a second arm in the inner `match` expression. When the file can'_t be created, a different error message is printed. the second arm of the outer `match` stays the same, so the program panics on any error besides the missing file error.
 
 ### Alternatives to Using `match` with `Result<T, E>`
 
@@ -268,11 +268,11 @@ fn main() {
 }
 ```
 
-Although this code has the same behavior as Listing 9-5, it doesn't contain any `match` expressions and is cleaner to read. Come back to this example after you've read Chapter 13, and look up the `unwrap_or_else` method in the standard library documentation. Many more of these methods can clean up huge nested `match` expressions when you're dealing with errors.
+Although this code has the same behavior as Listing 9-5, it doesn'_t contain any `match` expressions and is cleaner to read. Come back to this example after you've read Chapter 13, and look up the `unwrap_or_else` method in the standard library documentation. Many more of these methods can clean up huge nested `match` expressions when you're dealing with errors.
 
 ### Shortcuts for Panic on Error: unwrap and expect
 
-Using `match` works well enough, but it can be a bit verbose and doesn't always communicate intent well. The `Result<T, E>` type has many helper methods defined on nit to do various, more specific tasks. The `unwrap` method is a shortcut method implemented just like the `match` expression we wrote in Listing 9-4. If the `Result` value is the `Ok` variant, `unwrap` will return the value inside the `Ok`. If the `Result` is the `Err` variant, `unwrap` will call the `panic!` macro for us. Here is an example of `unwrap` in action:
+Using `match` works well enough, but it can be a bit verbose and doesn'_t always communicate intent well. The `Result<T, E>` type has many helper methods defined on nit to do various, more specific tasks. The `unwrap` method is a shortcut method implemented just like the `match` expression we wrote in Listing 9-4. If the `Result` value is the `Ok` variant, `unwrap` will return the value inside the `Ok`. If the `Result` is the `Err` variant, `unwrap` will call the `panic!` macro for us. Here is an example of `unwrap` in action:
 
 Filename: src/main.rs
 
@@ -316,7 +316,7 @@ Because this error message starts with the text we specified, `Failed to open he
 
 When a function's implementation calls something that might fail, instead of handling the error within the function itself, you can return the error to the calling code so that it can decide what to do. This is known as *propagating* the error and gives more control to the calling code, wherer there might be more information or logic that dictates how the error should be handled than what you have available in the context of your code.
 
-For example, Listing 9-6 shows a fuction that reads a username from a file. If the file doesn't exist or can't be read, this function will return those errors to the code that called the function.
+For example, Listing 9-6 shows a fuction that reads a username from a file. If the file doesn'_t exist or can'_t be read, this function will return those errors to the code that called the function.
 
 Filename: src/main.rs
 
@@ -347,9 +347,9 @@ This function can be written in a much shorter way, but we're going to start by 
 
 The body of the function starts by calling the `File::open` function. Then we handle the `Result` value with a `match` similar to the `match` in Listing 9-4. If `File::open` succeeds, th file handle in the pattern variable `file` becomes the value in the mutable variable `f` and the function continues. In the `Err` case, instead of calling `panic!`, we use the `return` keyword to return early out of the function entirely and pass the error value from `File::open`, now in the pattern variable `e`, back to the calling code as this function's error value.
 
-So if we have a file handle in `f`, the function then creates a new `String` in variable `s` and calls the `read_to_string` metod on the file handle in `f` to read the contents of the file into `s`. The `read_to_string` method also returns a `Result` because it might fail, even though `File::open` succeeded. So we need another `match` to handle that `Result`: if `read_to_string` succeeds, then our function has succeeded, and we return the username from the file that's now in `s` wrapped in an `Ok`. If `read_to_string` fails, we return to error value in the same way that we returned the error value in the `match` that handled the return value of `File::open`. However, we don't need to explicityly say `return`, because this is the last expression in the function.
+So if we have a file handle in `f`, the function then creates a new `String` in variable `s` and calls the `read_to_string` metod on the file handle in `f` to read the contents of the file into `s`. The `read_to_string` method also returns a `Result` because it might fail, even though `File::open` succeeded. So we need another `match` to handle that `Result`: if `read_to_string` succeeds, then our function has succeeded, and we return the username from the file that's now in `s` wrapped in an `Ok`. If `read_to_string` fails, we return to error value in the same way that we returned the error value in the `match` that handled the return value of `File::open`. However, we don'_t need to explicityly say `return`, because this is the last expression in the function.
 
-The code that calls this code will then handle getting either an `Ok` value that contains a username or an `Err` value that contains an `io::Error`. It's up to the calling code to decide what to do with those values. If the calling code gets an `Err` value, it could call `panic!` and crash the program, use a don't have enough information on what the calling code is actually tring to do, so we propagate all the success or error information upward for it to handle appropriately.
+The code that calls this code will then handle getting either an `Ok` value that contains a username or an `Err` value that contains an `io::Error`. It's up to the calling code to decide what to do with those values. If the calling code gets an `Err` value, it could call `panic!` and crash the program, use a don'_t have enough information on what the calling code is actually tring to do, so we propagate all the success or error information upward for it to handle appropriately.
 
 This pattern of propagating errors is so common in Rust that Rust provides the question mark operator `?` to make this easier.
 
@@ -398,7 +398,7 @@ fn read_username_from_file() -> Result<String, io::Error> {
 
 **Listing 9-8: Chaining method calls after the `?` operator**
 
-We've moved the creation of the new `String` in `s` to the beginning of the function that part hasn't changed. Instead of creating a variable `f`, we've chained the call to `read_to_string` directly onto the result of `File::open("hello.txt")?`. We still have a `?` at the end of the `read_to_string` call, and we still return an `Ok` value containing the username in `s` when both `File::open` and `read_to_string` succeed rather than returning errors. The functionality is again the same as in Listing 9-6 and Listing 9-7; this is just a different, more ergonomic way to write it.
+We've moved the creation of the new `String` in `s` to the beginning of the function that part hasn'_t changed. Instead of creating a variable `f`, we've chained the call to `read_to_string` directly onto the result of `File::open("hello.txt")?`. We still have a `?` at the end of the `read_to_string` call, and we still return an `Ok` value containing the username in `s` when both `File::open` and `read_to_string` succeed rather than returning errors. The functionality is again the same as in Listing 9-6 and Listing 9-7; this is just a different, more ergonomic way to write it.
 
 Listing 9-9 shows a way to make this even shorter using `fs::read_to_string`.
 
@@ -415,7 +415,7 @@ fn read_username_from_file() -> Result<String, io::Error> {
 
 **Listing 9-9: Using `fs::read_to_string` instead of opening and then reading the file**
 
-Reading a file into a string is a fairly common operation, so the standard library provides thhe convenient `fs::read_to_string` function that opens the fille, creates a new `String`, reads the contents of the file, puts the contents into that `String`, and returns it. Of course, using `fs::read_to_string` doesn't give us the opportunity to explain all the error handling, so we did it the longer way first.
+Reading a file into a string is a fairly common operation, so the standard library provides thhe convenient `fs::read_to_string` function that opens the fille, creates a new `String`, reads the contents of the file, puts the contents into that `String`, and returns it. Of course, using `fs::read_to_string` doesn'_t give us the opportunity to explain all the error handling, so we did it the longer way first.
 
 ### Where The `?` Operator Can Be Used
 
@@ -431,7 +431,7 @@ fn main() {
 }
 ```
 
-**Listing 9-10: Attempting to use the `?` in the `main` function that returns `()` won't compile**
+**Listing 9-10: Attempting to use the `?` in the `main` function that returns `()` won'_t compile**
 
 This code opens a file, which might fail. The `?` operator follows the `Result` value returned by `File::open`, but this `main` function has the return type of `()`, not `Result`. When we compile this code, we get the following error message:
 
@@ -459,7 +459,7 @@ error: could not compile `error-handling` due to previous error
 
 This error points out that we're only allowed to use the  `?` operator in a function that returns `Result`, `Option`, or another type that implements `FromResidual`. To fix the error, you have two choices. One choice is to change the return type of your function to be compatible with the value you're using the `?` operator on as long as you have no restructions preventing that. The other technique is to use a `match` or one of the `Result<T, E>` methods to handle the `Result<T, E>` in whatever way is appropriate.
 
-The error message also mentioned that `?` can be used with `Option<T>` values as well. As with using `?` on `Result`, you can only use `?` on `Option` in a function that returns an `Option`. The behavior of the `?` operator when called on an `Option<T>` is similar to its behavior when called on a `Result<T,E>`: if the value is `None`, the `None` will be returned early from the function at that point. If the value is `Some`, the value inside the `Some` is the resulting value of the expression and the function continues. Listing 9-11 hass an example of a function that finds the last character of the first line in the given text:
+The error message also mentioned that `?` can be used with `Option<T>` values as well. As with using `?` on `Result`, you can only use `?` on `Option` in a function that returns an `Option`. The behavior of the `?` operator when called on an `Option<T>` is similar to its behavior when called on a `Result<T,E>`: if the value is `_None`, the `_None` will be returned early from the function at that point. If the value is `Some`, the value inside the `Some` is the resulting value of the expression and the function continues. Listing 9-11 hass an example of a function that finds the last character of the first line in the given text:
 
 ```rust
 fn last_char_of_first_line(text: &str) -> Option<char> {
@@ -469,11 +469,11 @@ fn last_char_of_first_line(text: &str) -> Option<char> {
 
 **Listing 9-11: Using the `?` operator on an `Option<T>` value**
 
-This function returns `Option<char>` because it's possible that there is a character there, but it's also possible that there isn't. This code takes the `text` string slice argument and calls the `lines` method on it, which returns an iterator over the lines in the string. Because this function wants to examine the ffirst line, it calls `next` on the iterator to get the first value from the iterator. If `text` is the empty string, this call to `next` will return `None`, in which case we use `?` to stop and return `None` from `last_char_of_first_line`. If `text` is not the empty string, `next` will return a `Some` value containing a string slice of the first line in `text`.
+This function returns `Option<char>` because it's possible that there is a character there, but it's also possible that there isn'_t. This code takes the `text` string slice argument and calls the `lines` method on it, which returns an iterator over the lines in the string. Because this function wants to examine the ffirst line, it calls `next` on the iterator to get the first value from the iterator. If `text` is the empty string, this call to `next` will return `_None`, in which case we use `?` to stop and return `_None` from `last_char_of_first_line`. If `text` is not the empty string, `next` will return a `Some` value containing a string slice of the first line in `text`.
 
-The `?` extracts the string slice, and we can call `chars` on that string slice to get an iterator of its characters. We're interested in the last character in this first line, so we call `last` to return the last item in the iterator. This is an `Option` because it's possible that the first line is the empty string, for example if `text` starts with a blank line but has characters on other lines, as in "\nhi". However, if there  is a last character on the first line, it will be returned in the `Some` variant. The `?` operator in the middle gives us a concise way to express this logic, allowing us to implement the function in one line. If we couldn't use the `?` operator on `Option`, we'd have to implement this logic using more method calls or a `match` expression.
+The `?` extracts the string slice, and we can call `chars` on that string slice to get an iterator of its characters. We're interested in the last character in this first line, so we call `last` to return the last item in the iterator. This is an `Option` because it's possible that the first line is the empty string, for example if `text` starts with a blank line but has characters on other lines, as in "\nhi". However, if there  is a last character on the first line, it will be returned in the `Some` variant. The `?` operator in the middle gives us a concise way to express this logic, allowing us to implement the function in one line. If we couldn'_t use the `?` operator on `Option`, we'd have to implement this logic using more method calls or a `match` expression.
 
-Note that you can use the `?` operator on a `Result` in a function that returns `Result`, and you can use the `?` operator on an `Option` in a function that returns `Option`, but you can't mux and match. The `?` operator won't automatically convert a `Result` to an `Option` or vice versa; in those cases, you can use methods like the `ok` method on `Result` or the `ok_or` method on `Option` to do the conversion explicitly.
+Note that you can use the `?` operator on a `Result` in a function that returns `Result`, and you can use the `?` operator on an `Option` in a function that returns `Option`, but you can'_t mux and match. The `?` operator won'_t automatically convert a `Result` to an `Option` or vice versa; in those cases, you can use methods like the `ok` method on `Result` or the `ok_or` method on `Option` to do the conversion explicitly.
 
 So far, all the `main` functions we've used return `()`. The `main` function is special because it's the entry and exit point of executable programs, and there are restructions on what its return type can be for the programs to behave as expected.
 
@@ -496,7 +496,7 @@ The `Box<dyn Error>` type is a *trait object*, which we'll talk about in the "Us
 
 When a `main` function returns a `Result<(), E>`, the execuutable will exit with a value of `0` if `main` returns `Ok(())` and will exit with a nonzero value if `main` returns an `Err` value. Executables written in C return integers when they exit: programs that exit successfully return the integer `0`, and programs that error return some integer other than `0`. Rust also returns integers from executables to be compatible with this convention.
 
-The `main` function main return any types that implement [the std::process::Termination trait](https://doc.rust-lang.org/std/process/trait.Termination.html). As of this writing, the `Termination` trait is an unstable feature only available in Nightly Rust, so you can't yet implement it for your own types in Stable Rust, but you might be able to someday!
+The `main` function main return any types that implement [the std::process::Termination trait](https://doc.rust-lang.org/std/process/trait.Termination.html). As of this writing, the `Termination` trait is an unstable feature only available in Nightly Rust, so you can'_t yet implement it for your own types in Stable Rust, but you might be able to someday!
 
 Now that we've discussed the details of calling `panic!` or returning `Result`, let's return to the topic of how to decide which is appropriate to use in which cases.
 
@@ -504,7 +504,7 @@ Now that we've discussed the details of calling `panic!` or returning `Result`, 
 
 So how do you decide when you should call `panic!`  and when you should return `Result`? When code panics, there's no way to recover. You could call `panic!` for any error situation, whether there's a possible way to recover or not, but then you're making the decision that a situation is unrecoverable on behalf of the calling code. When you coose to return a `Result` value, you give the calling code options. The calling code could choose to attempt to recover in a way that's appropriate for its situation, or it could decide that an `Err` value in this case is unrecoverable, so it can call `panic!` and turn your recoverable error into an unrecoverable one. Therefore, returning  `Result` is a good default choice when you're defining a function that  might fail.
 
-In situations such as examples, prototype code, and tests, it's more appropriate to write code that panics insread of returning a `Result`. Let's explore why, then discuss siituations in which the compiler can't tell that failure is impossible, but you as a human can. The chapter will conclude with some general guidelines on how to decide whether to panic in a library code.
+In situations such as examples, prototype code, and tests, it's more appropriate to write code that panics insread of returning a `Result`. Let's explore why, then discuss siituations in which the compiler can'_t tell that failure is impossible, but you as a human can. The chapter will conclude with some general guidelines on how to decide whether to panic in a library code.
 
 ### Examples, Pprototype Code, and Tests
 
@@ -512,11 +512,11 @@ When you're writing an example to illustrate some concept, also including robust
 
 Similarly, the `unwrap` and `expect` methhods are very handy when prototyping, before you're ready to decide how to handle errors They leave clear markers in your code for when you're ready to make your program more robust.
 
-If a method call fails in a test, you'd want the whole test to fail, even if that method isn't the functionality under test. Because `panic!` is how a test is marked as a failure, calling `unwrap` or `expect` is exactly what should happen.
+If a method call fails in a test, you'd want the whole test to fail, even if that method isn'_t the functionality under test. Because `panic!` is how a test is marked as a failure, calling `unwrap` or `expect` is exactly what should happen.
 
 ### Cases in Which You Have More Information Than the Compiler
 
-It would also be appropriate to call `unwrap` when you have some other logic that ensures the `Result` will have an `Ok` value, but the logic isn't something the compiler understands. You'll still have a `Result` value thhat you need to handle: whatever operation you're calling still has the possibility of failing in general, even though it's logically impossible in your particular situation. If you can ensure by manually inspecting the code that you'll never have an `Err` variant, it's perfectly acceptable to call `unwrap`. Here's an example:
+It would also be appropriate to call `unwrap` when you have some other logic that ensures the `Result` will have an `Ok` value, but the logic isn'_t something the compiler understands. You'll still have a `Result` value thhat you need to handle: whatever operation you're calling still has the possibility of failing in general, even though it's logically impossible in your particular situation. If you can ensure by manually inspecting the code that you'll never have an `Err` variant, it's perfectly acceptable to call `unwrap`. Here's an example:
 
 ```rust
 use std::net::IpAddr;
@@ -524,7 +524,7 @@ use std::net::IpAddr;
 let home:IpAddr = "127.0.0.1".parse().unwrap();
 ```
 
-We're creating an `IpAddr` instance by parsing a hardcoded string. We can see that `127.0.0.1` is a valid IP address, so it's acceptable to use `unwrap` here. However, having a hardcoded, valid string doesn't change the return type of the `parse` method: we still get a `Result` value, and the compiler will still make us handle the `Result` as if the `Err` variant is a possibility because the compiler isn't smart enough to see that this string is always a valid IP address. If the IP address string came from a user rather than being hardcoded into the program and therefore *did* have a possibility of failure, we'd definiitely want to handle the `Result` in a more robust way instead..
+We're creating an `IpAddr` instance by parsing a hardcoded string. We can see that `127.0.0.1` is a valid IP address, so it's acceptable to use `unwrap` here. However, having a hardcoded, valid string doesn'_t change the return type of the `parse` method: we still get a `Result` value, and the compiler will still make us handle the `Result` as if the `Err` variant is a possibility because the compiler isn'_t smart enough to see that this string is always a valid IP address. If the IP address string came from a user rather than being hardcoded into the program and therefore *did* have a possibility of failure, we'd definiitely want to handle the `Result` in a more robust way instead..
 
 ### Guidelines for `Error Handling
 
@@ -536,13 +536,13 @@ It's advisable to have your code panic when it's possible that your code could e
 
 - There's not a good way to encode this information in the types you use. We'll work through an example of what we mean in the "Encoding States and Behavior as Types" section of Chapter 17.
 
-If someone calls your code and passes in values that don't make sence, the best choice might be to call `panic!` and alert the person using your library to the bug in their code so they can fix it during development. Similarly, `panic!` is often appropriate if you're calling external code that is out of your control and it returns an invalid state that you have no way of fixing.
+If someone calls your code and passes in values that don'_t make sence, the best choice might be to call `panic!` and alert the person using your library to the bug in their code so they can fix it during development. Similarly, `panic!` is often appropriate if you're calling external code that is out of your control and it returns an invalid state that you have no way of fixing.
 
 However, when failure is expected, it's more appropriate to return a `Result` than to make a `panic!` call. Examples include a parser being given malformed data or an HTTP request returning a status that indicates you have hit a rate limit. In these cases, returning a `Result` indicatess that failure iis an expected possibility that the calling code must deciide hoow to handle.
 
-When your code performs operations on values, your code should verify the values are valid first and panic if the values aren't valid. This is mostly for safety reasons: attempting to operate on invalid data can expose your code to vulnerabilitues. This is the main reason the standard library will call `panic!` if you attempt an out-of-bounds memory access: tring to access memory that doesn't belong to the current data structure is a common security problem. Functions often have *contracts*: their behavior is only guaranteed if the inputs meet particular requirements. Panicking when the contract is violated makes sense because a contract violation always indicates a caller-side bug and it's not a kind of error you want the calling code to have to explicitly handle. In fact, there's no reasonable way for calling code to recover; the calling *programmers* need to fix the code. Contracts for a function, expecially when a violation will cause a panic, should be explained in the API documentation for the function.
+When your code performs operations on values, your code should verify the values are valid first and panic if the values aren'_t valid. This is mostly for safety reasons: attempting to operate on invalid data can expose your code to vulnerabilitues. This is the main reason the standard library will call `panic!` if you attempt an out-of-bounds memory access: tring to access memory that doesn'_t belong to the current data structure is a common security problem. Functions often have *contracts*: their behavior is only guaranteed if the inputs meet particular requirements. Panicking when the contract is violated makes sense because a contract violation always indicates a caller-side bug and it's not a kind of error you want the calling code to have to explicitly handle. In fact, there's no reasonable way for calling code to recover; the calling *programmers* need to fix the code. Contracts for a function, expecially when a violation will cause a panic, should be explained in the API documentation for the function.
 
-However, having lots of error checks in all of your functions would be verbose and annoying. Fortunately, you can use Rust's type sustem (and thus the type checking done by the compiler) to do many of the checks for you. If your function has a particular type as a parameter, you can proceed with your code's logic knowing that the compiler has already ensured you have a valid value. For example, if you have a type rather than an `Optionn`, your program expects to have *something* rather than *nothing*. Youur code then doesn't have to handle two cases for the `Some` and `None` varuants: it will only have one case for definitely having a value. Code trying to pass nothing to your function won't even compile, so your function doesn't have to check for that case at runtime. Another example is using an unsigned integer type such as `u32`, which ensures the parameter is never negative.
+However, having lots of error checks in all of your functions would be verbose and annoying. Fortunately, you can use Rust's type sustem (and thus the type checking done by the compiler) to do many of the checks for you. If your function has a particular type as a parameter, you can proceed with your code's logic knowing that the compiler has already ensured you have a valid value. For example, if you have a type rather than an `Optionn`, your program expects to have *something* rather than *nothing*. Youur code then doesn'_t have to handle two cases for the `Some` and `_None` varuants: it will only have one case for definitely having a value. Code trying to pass nothing to your function won'_t even compile, so your function doesn'_t have to check for that case at runtime. Another example is using an unsigned integer type such as `u32`, which ensures the parameter is never negative.
 
 ### Creating Custom Types for Validation
 
@@ -599,16 +599,14 @@ impl Guess {
 
 First, we define a struct named `Guess` that has a field named `value` that hholds an `i32`. This is where the number will be stored.
 
-Then we implement an associated function named `new` on `Guess` that creates instances of `Guess` values. The `new` function is defined to have one parameter named `value` of type `i32` and to return a `Guess`. The code in the body of the `new` function tests `value` to make sure it's between 1 and 100. If `value` doesn't pass this test, we make a `panic!` call, which will alert the programmer who is writing the calling code that they have a bug they need to fix, because creating a `Guess` with a `value` outside this range would violate the contract that `Guess::new` is relying on. The conditions in which `Guess::new` might panic should be discussed in its public-facing API documentation; we'll cover documentation conventions indicating the possibility of a `panic!` in the API documentation that you create in Chapter 14. If `value` does pass the test, we create a new `Guess` with its `value` field set to the `value` parameter and return the `Guess`.
+Then we implement an associated function named `new` on `Guess` that creates instances of `Guess` values. The `new` function is defined to have one parameter named `value` of type `i32` and to return a `Guess`. The code in the body of the `new` function tests `value` to make sure it's between 1 and 100. If `value` doesn'_t pass this test, we make a `panic!` call, which will alert the programmer who is writing the calling code that they have a bug they need to fix, because creating a `Guess` with a `value` outside this range would violate the contract that `Guess::new` is relying on. The conditions in which `Guess::new` might panic should be discussed in its public-facing API documentation; we'll cover documentation conventions indicating the possibility of a `panic!` in the API documentation that you create in Chapter 14. If `value` does pass the test, we create a new `Guess` with its `value` field set to the `value` parameter and return the `Guess`.
 
-Next, we implement a method named `value` that borrows `self`, doesn't have any other parameters, and returns an `i32`. This kind of method is sometimes called a *getter* because its purpose is to get some data from its fields and return it. This public methood iis necessary because the `value` field of the `Guess` struct is private. It's important that the `value` field be private so code using the `Guess` struct is not allowed to set `value` directly: code outside the module *must* use the `Guess::new` function to create an instance of `Guess`, thereby ensuring there's no way for a `Guess` to have a `value` that hasn't been checked by the conditions in the `Guess::new` function.
+Next, we implement a method named `value` that borrows `self`, doesn'_t have any other parameters, and returns an `i32`. This kind of method is sometimes called a *getter* because its purpose is to get some data from its fields and return it. This public methood iis necessary because the `value` field of the `Guess` struct is private. It's important that the `value` field be private so code using the `Guess` struct is not allowed to set `value` directly: code outside the module *must* use the `Guess::new` function to create an instance of `Guess`, thereby ensuring there's no way for a `Guess` to have a `value` that hasn'_t been checked by the conditions in the `Guess::new` function.
 
-A function that has a parameter or returns only numbers between 1 and 100 could then declare in its signature that it takes or returns a `Guess` rather than an `i32` and wouldn't need to do any additional checks in its body.
+A function that has a parameter or returns only numbers between 1 and 100 could then declare in its signature that it takes or returns a `Guess` rather than an `i32` and wouldn'_t need to do any additional checks in its body.
 
 ### Summary
 
-Rust's error handing features are designed to help you write more robust code. The `panic!` macro signals that your program is in a state it can't handle and lets you tell the process to stop instead of trying to proceed with invalid or incorrect values. The `Result` enum uses Rust's type system to indicate that operations might fail in a way that your code could recover from. You can use `Result` to tell code that calls your code that it needs to handle potential success or failure as well. Using `panic!` and `Result` in the appropriate situations will make your code more reliable in the face of inevitable problems.
+Rust's error handing features are designed to help you write more robust code. The `panic!` macro signals that your program is in a state it can'_t handle and lets you tell the process to stop instead of trying to proceed with invalid or incorrect values. The `Result` enum uses Rust's type system to indicate that operations might fail in a way that your code could recover from. You can use `Result` to tell code that calls your code that it needs to handle potential success or failure as well. Using `panic!` and `Result` in the appropriate situations will make your code more reliable in the face of inevitable problems.
 
 Now that you've seen useful ways that the standard library uses generics with the `Option` and `Result` enums, we'll talk about how generics work and how you can use them in your code.
-
-

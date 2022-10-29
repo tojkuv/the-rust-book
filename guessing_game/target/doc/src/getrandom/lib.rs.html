@@ -381,7 +381,7 @@
 <span class="doccomment">//! getting an error; in these cases, we always choose to block.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! On Linux (when the `getrandom` system call is not available), reading from</span>
-<span class="doccomment">//! `/dev/urandom` never blocks, even when the OS hasn&#39;t collected enough</span>
+<span class="doccomment">//! `/dev/urandom` never blocks, even when the OS hasn&#39;_t collected enough</span>
 <span class="doccomment">//! entropy yet. To avoid returning low-entropy bytes, we first poll</span>
 <span class="doccomment">//! `/dev/random` and only switch to `/dev/urandom` once this has succeeded.</span>
 <span class="doccomment">//!</span>

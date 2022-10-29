@@ -182,7 +182,7 @@ Relationships:
 
 Both abosolute and relative paths are followed by one or more identifiers seperated by double colons (`::`).
 
-Let's return to the example in Listing 7-1. How do we call the `add_to_waitlist` fuction? This is the same as asking, what;s the path of the `add_to_waitlits` function? Listing 7-3 contains Listing 7-1 with some of the modules and functions removed. We'll show two ways to call the `add_to_waitlist` function from a new function `eat_at_restaurant` defined in the crate root. the `eat_at_restaurant` function is part of our library crate's public API, so we mark it with the `pub` keyword. In the "Exposing Paths with the `pub` Keyword" section, we'll go into more detaill about `pub`. note that this example won't compile just yet; we'll explain why in a bit.
+Let's return to the example in Listing 7-1. How do we call the `add_to_waitlist` fuction? This is the same as asking, what;s the path of the `add_to_waitlits` function? Listing 7-3 contains Listing 7-1 with some of the modules and functions removed. We'll show two ways to call the `add_to_waitlist` function from a new function `eat_at_restaurant` defined in the crate root. the `eat_at_restaurant` function is part of our library crate's public API, so we mark it with the `pub` keyword. In the "Exposing Paths with the `pub` Keyword" section, we'll go into more detaill about `pub`. note that this example won'_t compile just yet; we'll explain why in a bit.
 
 Filename: src/lib.rs
 
@@ -212,7 +212,7 @@ The second time we call `add_to_waitlist` in `eat_at_restaurant`, we use a relat
 
 Choosing wherether to use a relative or absolute path is a decision you'll make based on your project. The decision should depend on whether you're more likely to move item definition code separetely from or together with the code that uses the item. For example, if we move the `front_of_house` module and the `eat_at_restaurant` function into a module named `customer_experience`, we'd need to update the absolute path to `add_to_waitlist `, but the relative path would still be valid. However, if we moved the `eat_at_restaurant` function separetely into a module named `dining`, the absolute path to the `add_to_waitlist` call would stay the same, but the relative path would need to be updated. Our preference is to specify absolute paths because it's more likely we'll want to move code definitions and item calls independently of each other.
 
-Let's try to compile Listing 7-3 and find out why it won't compile yet! The error we get is shown in Listing 7-4.
+Let's try to compile Listing 7-3 and find out why it won'_t compile yet! The error we get is shown in Listing 7-4.
 
 ```shell
 $ cargo build
@@ -248,11 +248,11 @@ error: could not compile `restaurant` due to 2 previous errors
 
 **Listing 7-4: Compile errors from building the code in Listing 7-3**
 
-The error message say that module `hosting` is private. In other words, we have the correct paths for the `hosting` module and the `add_to_waitlist` function, but Rust won't let us use them because it doesn't have access to the private sections.
+The error message say that module `hosting` is private. In other words, we have the correct paths for the `hosting` module and the `add_to_waitlist` function, but Rust won'_t let us use them because it doesn'_t have access to the private sections.
 
-Modules aren't useful only for organinzing your code. They also define Rust's *privacy boundary*: the line that encapsulates the implementation details external code isn't allowed to know about, call, or rely on. So, if you want to make an item like a function or struct private, you putit in a module.
+Modules aren'_t useful only for organinzing your code. They also define Rust's *privacy boundary*: the line that encapsulates the implementation details external code isn'_t allowed to know about, call, or rely on. So, if you want to make an item like a function or struct private, you putit in a module.
 
-The way privacy works in Rust is that all items (functions, methods, structs, enums, modules, and constants) are private bu default. Items in a parent module can't use the private items inside child modules, but items in child modules can use the items in their ancestor modules. The reason is that child modules wrap and hide their implementation details, but the child modules can see the context in which they're defined. To continue with the restauurant metaphor, think of the privacy rules as being like the back office of a restaurant: what goes on in there is private to restairant customers, but office managers can see and do everything in the restaurant in which they operate.
+The way privacy works in Rust is that all items (functions, methods, structs, enums, modules, and constants) are private bu default. Items in a parent module can'_t use the private items inside child modules, but items in child modules can use the items in their ancestor modules. The reason is that child modules wrap and hide their implementation details, but the child modules can see the context in which they're defined. To continue with the restauurant metaphor, think of the privacy rules as being like the back office of a restaurant: what goes on in there is private to restairant customers, but office managers can see and do everything in the restaurant in which they operate.
 
 Rust chose to have the module system function this waay so that hiding inner implementation details is the default. That way, you know which parts of the inner code you can change without breaking outer code, But you can expose inner parts of chilld modules' code to outer ancestor modules by using the `pub` keyword to make an item public.
 
@@ -314,7 +314,7 @@ error: could not compile `restaurant` due to 2 previous errors
 
 **Listing 7-6: Compiller errors from building the code in Listing 7-5**
 
-What happened? Adding the pub keyword in front of `mod hosting` makes the module public. With this change, if we can access `front_of_house`, we can access `hosting`. But the *contents* of `hosting` are still private; making the module public doesn't make its contents public, The `pub` keyword on a module only lets code in its ancestor modules refer to it.
+What happened? Adding the pub keyword in front of `mod hosting` makes the module public. With this change, if we can access `front_of_house`, we can access `hosting`. But the *contents* of `hosting` are still private; making the module public doesn'_t make its contents public, The `pub` keyword on a module only lets code in its ancestor modules refer to it.
 
 The errors in Listing 7-6 say that the `add_to_waitlist` function is private. the privacy rules apply to structs, enums, functions, and methods as well as modules.
 
@@ -342,7 +342,7 @@ pub fn eat_at_restaurant() {
 
 Now code will compile! Let's look at the absolute and the relative path and double-ckeck why adding the `pub` keyword lets us use these paths in `add_to_waitlist` with respect to the privacy rules.
 
-In the aboslute path, we start with `crate`, the root of our crate's module tree. then the `front_of_house` module is defined in the crate root. the `front_of_house` module isn't public, but because the `eat_at_restaurant` function is defined in the same module as `front_of_house` (that is, `eat_at_restaurant` and `front_of_house` are siblings), we can refer to `front_of_house` from `eat_at_restaurant`. Next is the `hosting` module marked with `pub`. We can access the parent module of `hosting`, so we can access `hosting`. Finally, the `add_to_waitlist` function is marked with `pub` and we can access its parent module, so this function call works!
+In the aboslute path, we start with `crate`, the root of our crate's module tree. then the `front_of_house` module is defined in the crate root. the `front_of_house` module isn'_t public, but because the `eat_at_restaurant` function is defined in the same module as `front_of_house` (that is, `eat_at_restaurant` and `front_of_house` are siblings), we can refer to `front_of_house` from `eat_at_restaurant`. Next is the `hosting` module marked with `pub`. We can access the parent module of `hosting`, so we can access `hosting`. Finally, the `add_to_waitlist` function is marked with `pub` and we can access its parent module, so this function call works!
 
 In the relative path, the logic is the same as the absolute path except for the first step: rathe than starting from the crate root, the path starts from `front_of_house`. The `front_of_house` module is defined with the same module as `eat_at_restaurant`, so the repative path starting from the module in which `eat_at_restaurant` is defined...
 
@@ -379,7 +379,7 @@ The `fix_incorrect_order` function is in the `back_of_house` module, so we can u
 
 ### Making Structs and Enums Public
 
-We can also use `pub` to designate structs and enums as public, but there are a few extra details. If we use `pub` before a struct definition, we make the structure public, but the struct;s fields will still be private. We can make each field public or not on a case-by-case basus. In Listing 7-9, we've defined a public `back_of_house::Breakfast` struct with a public `toast` field but a private `seasonal_fruit` field. This models the case in a restaurant where the customer can pick the type of bread that comes with a meal, but the chef decides which fruit accompanies the meal based on what's in season and in stock. The available fruit changes quickly, so customers can't choose the fruit or even see which fruit they'll get.
+We can also use `pub` to designate structs and enums as public, but there are a few extra details. If we use `pub` before a struct definition, we make the structure public, but the struct;s fields will still be private. We can make each field public or not on a case-by-case basus. In Listing 7-9, we've defined a public `back_of_house::Breakfast` struct with a public `toast` field but a private `seasonal_fruit` field. This models the case in a restaurant where the customer can pick the type of bread that comes with a meal, but the chef decides which fruit accompanies the meal based on what's in season and in stock. The available fruit changes quickly, so customers can'_t choose the fruit or even see which fruit they'll get.
 
 Filename: src/lib.rs
 
@@ -407,7 +407,7 @@ pub fn eat_at_restaurant() {
     meal.toast = String::from("Wheat");
     println!("I'd like {} toast please", meal.toast);
 
-    // the next line won't compile if we uncomment it; we're not allowed to see or modify the seasonal fruit that
+    // the next line won'_t compile if we uncomment it; we're not allowed to see or modify the seasonal fruit that
     // comes with the meal
     // meal.seasonal_fruit = String::from("blueberries");
 }
@@ -415,9 +415,9 @@ pub fn eat_at_restaurant() {
 
 **Listing 7-9: A struct with some public fields and some private fields**
 
-Because the `toast` field in the `back_of_house::Breakfast` struct is public, in `eat_at_restaurant` we can write and read to the `toast` field using dot notation. Notice that we can't use the `seasonal_fruit` field in `eat_at_restaurant` because `seasonal_fruit` is private. Try uncommenting the line modifying the `seasonal_fruit` field value to see what error you get!
+Because the `toast` field in the `back_of_house::Breakfast` struct is public, in `eat_at_restaurant` we can write and read to the `toast` field using dot notation. Notice that we can'_t use the `seasonal_fruit` field in `eat_at_restaurant` because `seasonal_fruit` is private. Try uncommenting the line modifying the `seasonal_fruit` field value to see what error you get!
 
-Also, note that because `back_of_house::Breakfast` has a private field, the struct needs to provide a public associated function that constructs an instance of Breakfast (we've named it summer here). If `Breakfast` didn't have such a fuunction, we couldn't create an instance of `Breakfast` in `eat_at_restaurant` because we coudn't set the value of the private `seasonal_fruit` field in `eat_at_restaurant`.
+Also, note that because `back_of_house::Breakfast` has a private field, the struct needs to provide a public associated function that constructs an instance of Breakfast (we've named it summer here). If `Breakfast` didn'_t have such a fuunction, we couldn'_t create an instance of `Breakfast` in `eat_at_restaurant` because we coudn'_t set the value of the private `seasonal_fruit` field in `eat_at_restaurant`.
 
 In contrast, if we make an enum public, all of its variantss are then public. We only need the `pub` before the `enum` keyword, as shown in Listing 7-10.
 
@@ -439,6 +439,6 @@ pub fn eat_at_restaurant() {
 
 **Listing 7-10: Designating an enum as public makes all its variants public**
 
-Because we made the `Appetizer` enum public, we can use the `Soup` and `Salad` variants in `eat_at_restaurant`. Enums aren't very useful unless their variants are public; it would be annoying to have to annotate all enum variants with `pub` in every case, so the default for enum variants is to be public. Structs are often useful without their fields being public, so struct fields follow the general rule oof everything being private by default unless annotated with `pub`.
+Because we made the `Appetizer` enum public, we can use the `Soup` and `Salad` variants in `eat_at_restaurant`. Enums aren'_t very useful unless their variants are public; it would be annoying to have to annotate all enum variants with `pub` in every case, so the default for enum variants is to be public. Structs are often useful without their fields being public, so struct fields follow the general rule oof everything being private by default unless annotated with `pub`.
 
-There's one more situation involving `pub` that we haven't covered, and that is our last module system feature: the `use` keyword. We'll cover `use` by itself first, and then we'll show how to combine `pub` and `use`.
+There's one more situation involving `pub` that we haven'_t covered, and that is our last module system feature: the `use` keyword. We'll cover `use` by itself first, and then we'll show how to combine `pub` and `use`.

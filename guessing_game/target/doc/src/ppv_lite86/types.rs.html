@@ -360,7 +360,7 @@
 
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::missing_safety_doc</span>)]</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">UnsafeFrom</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
-    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_from</span>(<span class="ident">t</span>: <span class="ident">T</span>) -&gt; <span class="self">Self</span>;
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">unsafe_from</span>(<span class="ident">_t</span>: <span class="ident">T</span>) -&gt; <span class="self">Self</span>;
 }
 
 <span class="doccomment">/// A vector composed of two elements, which may be words or themselves vectors.</span>
@@ -376,7 +376,7 @@
 }
 <span class="doccomment">/// Vec4 functions which may not be implemented yet for all Vec4 types.</span>
 <span class="doccomment">/// NOTE: functions in this trait may be moved to Vec4 in any patch release. To avoid breakage,</span>
-<span class="doccomment">/// import Vec4Ext only together with Vec4, and don&#39;t qualify its methods.</span>
+<span class="doccomment">/// import Vec4Ext only together with Vec4, and don&#39;_t qualify its methods.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Vec4Ext</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">transpose4</span>(<span class="ident">a</span>: <span class="self">Self</span>, <span class="ident">b</span>: <span class="self">Self</span>, <span class="ident">c</span>: <span class="self">Self</span>, <span class="ident">d</span>: <span class="self">Self</span>) -&gt; (<span class="self">Self</span>, <span class="self">Self</span>, <span class="self">Self</span>, <span class="self">Self</span>)
     <span class="kw">where</span>

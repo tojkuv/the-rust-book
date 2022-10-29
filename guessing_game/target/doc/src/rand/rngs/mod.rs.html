@@ -225,7 +225,7 @@
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">doc_cfg</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)))]</span>
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span> <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">adapter</span>;
 
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">mock</span>; <span class="comment">// Public so we don&#39;t export `StepRng` directly, making it a bit</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">mock</span>; <span class="comment">// Public so we don&#39;_t export `StepRng` directly, making it a bit</span>
               <span class="comment">// more clear it is intended for testing.</span>
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">all</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;small_rng&quot;</span>, <span class="ident">target_pointer_width</span> <span class="op">=</span> <span class="string">&quot;64&quot;</span>))]</span>

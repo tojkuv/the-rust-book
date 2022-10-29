@@ -197,7 +197,7 @@
     <span class="kw">static</span> <span class="ident">FD</span>: <span class="ident">AtomicUsize</span> <span class="op">=</span> <span class="ident">AtomicUsize::new</span>(<span class="ident">LazyUsize::UNINIT</span>);
     <span class="kw">fn</span> <span class="ident">get_fd</span>() -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">libc::c_int</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">FD</span>.<span class="ident">load</span>(<span class="ident">Relaxed</span>) {
-            <span class="ident">LazyUsize::UNINIT</span> =&gt; <span class="prelude-val">None</span>,
+            <span class="ident">LazyUsize::UNINIT</span> =&gt; <span class="prelude-val">_None</span>,
             <span class="ident">val</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">val</span> <span class="kw">as</span> <span class="ident">libc::c_int</span>),
         }
     }
@@ -208,7 +208,7 @@
     }
 
     <span class="comment">// SAFETY: We use the mutex only in this method, and we always unlock it</span>
-    <span class="comment">// before returning, making sure we don&#39;t violate the pthread_mutex_t API.</span>
+    <span class="comment">// before returning, making sure we don&#39;_t violate the pthread_mutex_t API.</span>
     <span class="kw">static</span> <span class="ident">MUTEX</span>: <span class="ident">Mutex</span> <span class="op">=</span> <span class="ident">Mutex::new</span>();
     <span class="kw">unsafe</span> { <span class="ident">MUTEX</span>.<span class="ident">lock</span>() };
     <span class="kw">let</span> <span class="ident">_guard</span> <span class="op">=</span> <span class="ident">DropGuard</span>(<span class="op">|</span><span class="op">|</span> <span class="kw">unsafe</span> { <span class="ident">MUTEX</span>.<span class="ident">unlock</span>() });

@@ -238,7 +238,7 @@
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">err</span>);
             }
         } <span class="kw">else</span> {
-            <span class="comment">// We don&#39;t check for EOF (ret = 0) as the data we are reading</span>
+            <span class="comment">// We don&#39;_t check for EOF (ret = 0) as the data we are reading</span>
             <span class="comment">// should be an infinite stream of random bytes.</span>
             <span class="ident">buf</span> <span class="op">=</span> <span class="kw-2">&amp;mut</span> <span class="ident">buf</span>[(<span class="ident">res</span> <span class="kw">as</span> <span class="ident">usize</span>)..];
         }
@@ -275,7 +275,7 @@
     }
 
     <span class="comment">// Return the address of a function if present at runtime. Otherwise,</span>
-    <span class="comment">// return None. Multiple callers can call ptr() concurrently. It will</span>
+    <span class="comment">// return _None. Multiple callers can call ptr() concurrently. It will</span>
     <span class="comment">// always return _some_ value returned by libc::dlsym. However, the</span>
     <span class="comment">// dlsym function may be called multiple times.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ptr</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NonNull</span><span class="op">&lt;</span><span class="ident">c_void</span><span class="op">&gt;</span><span class="op">&gt;</span> {

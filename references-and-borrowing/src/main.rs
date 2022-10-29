@@ -1,6 +1,6 @@
 // the scope of a reference starts at the declaration of the reference until the last time it is used
     // there can be multiple immutable references in the same scope
-    // if there is a mutable reference, it is the only reference that is allowed to be declared within the references's 
+    // if there is a mutable reference, it is the only reference that is allowed to be declared within the references'
     // lifetime
 
 fn main() {
@@ -15,7 +15,7 @@ fn main() {
     // let r1 = &mut s1;
     // let r2 = &mut s1;
 
-    // println!("{}, {}", r1, r2); //compiller-time error: more than one mutable reference is in scope when r1 is used
+    // println!("{}, {}", r1, r2); //compiler-time error: more than one mutable reference is in scope when r1 is used
 
     {
         // let r3 = &mut s1;
@@ -42,7 +42,7 @@ fn main() {
 fn calculate_length(s: &String) -> usize { // s is a reference to a String
     s.len()
 }   // Here, s goes out of scope, but because it does not have ownership of the String, the value of the String is not
-    // droped
+    // dropped
 
 fn change(some_string: &mut String) {
     some_string.push_str(", world");
@@ -52,4 +52,4 @@ fn dangle() -> String { // dangle returns a reference to a string
     let s = String::from("hello"); // s is a new String
 
     s // we return a reference to the String, s
-} // Here, s goes out of scope, and is dropeed. Its memory goes away
+} // Here, s goes out of scope, and is dropped. Its memory goes away

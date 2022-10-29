@@ -2822,7 +2822,7 @@
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TCP_SAVED_SYN</span>: <span class="ident">::c_int</span> <span class="op">=</span> <span class="number">28</span>;
 <span class="macro">cfg_if!</span> {
     <span class="kw">if</span> <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">not</span>(<span class="ident">target_os</span> <span class="op">=</span> <span class="string">&quot;emscripten&quot;</span>))]</span> {
-        <span class="comment">// NOTE: emscripten doesn&#39;t support these options yet.</span>
+        <span class="comment">// NOTE: emscripten doesn&#39;_t support these options yet.</span>
 
         <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TCP_REPAIR_WINDOW</span>: <span class="ident">::c_int</span> <span class="op">=</span> <span class="number">29</span>;
         <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TCP_FASTOPEN_CONNECT</span>: <span class="ident">::c_int</span> <span class="op">=</span> <span class="number">30</span>;
@@ -2833,7 +2833,7 @@
         <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TCP_ZEROCOPY_RECEIVE</span>: <span class="ident">::c_int</span> <span class="op">=</span> <span class="number">35</span>;
         <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TCP_INQ</span>: <span class="ident">::c_int</span> <span class="op">=</span> <span class="number">36</span>;
         <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TCP_CM_INQ</span>: <span class="ident">::c_int</span> <span class="op">=</span> <span class="ident">TCP_INQ</span>;
-        <span class="comment">// NOTE: Some CI images doesn&#39;t have this option yet.</span>
+        <span class="comment">// NOTE: Some CI images doesn&#39;_t have this option yet.</span>
         <span class="comment">// pub const TCP_TX_DELAY: ::c_int = 37;</span>
     }
 }

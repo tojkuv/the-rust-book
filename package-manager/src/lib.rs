@@ -1,6 +1,6 @@
 //! # Package Manager
 //! 
-//! `package_manager_example_6923` is a package that contains some examples from chater 14 of the rust book.
+//! `package_manager_example_6923` is a package that contains some examples from chapter 14 of the rust book.
 
 pub mod art;
 

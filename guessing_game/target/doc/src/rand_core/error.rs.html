@@ -316,7 +316,7 @@
     <span class="doccomment">/// Extract the raw OS error code (if this error came from the OS)</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method is identical to `std::io::Error::raw_os_error()`, except</span>
-    <span class="doccomment">/// that it works in `no_std` contexts. If this method returns `None`, the</span>
+    <span class="doccomment">/// that it works in `no_std` contexts. If this method returns `_None`, the</span>
     <span class="doccomment">/// error value can still be formatted via the `Diplay` implementation.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">raw_os_error</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">i32</span><span class="op">&gt;</span> {
@@ -328,7 +328,7 @@
         }
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">code</span>() {
             <span class="prelude-val">Some</span>(<span class="ident">code</span>) <span class="kw">if</span> <span class="ident">u32::from</span>(<span class="ident">code</span>) <span class="op">&lt;</span> <span class="ident"><span class="self">Self</span>::INTERNAL_START</span> =&gt; <span class="prelude-val">Some</span>(<span class="ident">u32::from</span>(<span class="ident">code</span>) <span class="kw">as</span> <span class="ident">i32</span>),
-            <span class="kw">_</span> =&gt; <span class="prelude-val">None</span>,
+            <span class="kw">_</span> =&gt; <span class="prelude-val">_None</span>,
         }
     }
 
@@ -336,7 +336,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If this `Error` was constructed via `From&lt;NonZeroU32&gt;`, then this method</span>
     <span class="doccomment">/// will return this `NonZeroU32` code (for `no_std` this is always the</span>
-    <span class="doccomment">/// case). Otherwise, this method will return `None`.</span>
+    <span class="doccomment">/// case). Otherwise, this method will return `_None`.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">code</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">NonZeroU32</span><span class="op">&gt;</span> {
         <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;std&quot;</span>)]</span>

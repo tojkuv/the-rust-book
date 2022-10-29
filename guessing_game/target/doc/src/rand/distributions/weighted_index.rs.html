@@ -505,10 +505,10 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Creating a `WeightedIndex&lt;X&gt;` will allocate enough space to hold `N - 1`</span>
 <span class="doccomment">/// weights of type `X`, where `N` is the number of weights. However, since</span>
-<span class="doccomment">/// `Vec` doesn&#39;t guarantee a particular growth strategy, additional memory</span>
+<span class="doccomment">/// `Vec` doesn&#39;_t guarantee a particular growth strategy, additional memory</span>
 <span class="doccomment">/// might be allocated but not used. Since the `WeightedIndex` object also</span>
 <span class="doccomment">/// contains, this might cause additional allocations, though for primitive</span>
-<span class="doccomment">/// types, [`Uniform&lt;X&gt;`] doesn&#39;t allocate any memory.</span>
+<span class="doccomment">/// types, [`Uniform&lt;X&gt;`] doesn&#39;_t allocate any memory.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Sampling from `WeightedIndex` will result in a single call to</span>
 <span class="doccomment">/// `Uniform&lt;X&gt;::sample` (method of the [`Distribution`] trait), which typically</span>
@@ -617,9 +617,9 @@
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">total_weight</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">total_weight</span>.<span class="ident">clone</span>();
 
-        <span class="comment">// Check for errors first, so we don&#39;t modify `self` in case something</span>
+        <span class="comment">// Check for errors first, so we don&#39;_t modify `self` in case something</span>
         <span class="comment">// goes wrong.</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">prev_i</span> <span class="op">=</span> <span class="prelude-val">None</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">prev_i</span> <span class="op">=</span> <span class="prelude-val">_None</span>;
         <span class="kw">for</span> <span class="kw-2">&amp;</span>(<span class="ident">i</span>, <span class="ident">w</span>) <span class="kw">in</span> <span class="ident">new_weights</span> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">old_i</span>) <span class="op">=</span> <span class="ident">prev_i</span> {
                 <span class="kw">if</span> <span class="ident">old_i</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">i</span> {

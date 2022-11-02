@@ -135,6 +135,8 @@ fn main() {
     Pilot::fly(&person);
     Wizard::fly(&person);
     person.fly();
+
+    eprintln!("A baby dog is called a {}", Dog::baby_name());
 }
 
 // // the `integer` and `float` variables in the main method monomorphize the generic enumaration `Option` into two
@@ -210,5 +212,23 @@ impl Wizard for Human {
 impl Human {
     fn fly(&self) {
         println!("*waving arms furiously*");
+    }
+}
+
+pub trait Animal {
+    fn baby_name() -> String;
+}
+
+pub struct Dog;
+
+impl Animal for Dog {
+    fn baby_name() -> String {
+        String::from("puppy")
+    }
+}
+
+impl Dog {
+    fn baby_name() -> String {
+        String::from("Sofie")
     }
 }

@@ -1,7 +1,3 @@
-# TODO
-
-- Read and review the rust book.
-
 # Resources
 
 - [The rust book [english]](https://doc.rust-lang.org/book/title-page.html).

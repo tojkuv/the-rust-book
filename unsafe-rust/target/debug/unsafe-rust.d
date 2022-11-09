@@ -1,0 +1,1 @@
+/home/machine/Documents/GitHub/the-rust-book/unsafe-rust/target/debug/unsafe-rust: /home/machine/Documents/GitHub/the-rust-book/unsafe-rust/src/lib.rs /home/machine/Documents/GitHub/the-rust-book/unsafe-rust/src/main.rs

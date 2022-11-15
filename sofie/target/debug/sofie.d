@@ -1,0 +1,1 @@
+/home/machine/Documents/GitHub/the-rust-book/sofie/target/debug/sofie: /home/machine/Documents/GitHub/the-rust-book/hello_macro/hello_macro_derive/src/lib.rs /home/machine/Documents/GitHub/the-rust-book/hello_macro/src/lib.rs /home/machine/Documents/GitHub/the-rust-book/sofie/src/main.rs

@@ -21,18 +21,21 @@ impl Worker {
 			let job = receiver.lock()
 				/* the mutual exclusion primitive ensures that only one thread is requesting a `job()`.
 				 the lock is the lifetime of the `MutexGuard` and the lock is unlocked when the guard
-				  goes out of scope */
-				.expect("the mutual exclusion primitive was poisoned by another thread")
+				 goes out of scope */
+				              .expect("the mutual exclusion primitive was poisoned by another thread")
 				/* `recv()` blocks the thread if there is no `Job` in the buffer when it makes a request */
-				.recv()
-				.expect("the sender shutdown");
+				              .recv()
+			                  .expect("the sender shutdown");
 
 			println!("Worker {id} got a job; executing.");
 
 			job();
 		});
 
-		Worker { id, thread }
+		Worker {
+			id: id,
+			thread: thread,
+		}
 	}
 }
 
@@ -79,7 +82,10 @@ impl ThreadPool {
 			workers.push(Worker::new(id, Arc::clone(&receiver)));
 		}
 
-		ThreadPool { workers, sender }
+		ThreadPool {
+			workers: workers,
+			sender: sender,
+		}
 	}
 
 	pub fn execute<F>(&self, f: F)

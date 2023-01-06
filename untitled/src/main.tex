@@ -1,0 +1,426 @@
+%
+% LaTeX Problem Set Template originally designed
+% by former CS103 TA Sachin Padmanabhan, with updates,
+% edits, and simplifications by the lovely folks below.
+%
+% Updated for Fall 2018 by Michael Zhu
+% Updated for Fall 2019 by Joshua Spayd
+% Updated for Fall 2020 by Lucy Lu
+% Updated for Winter/Spring 2021 by Cynthia Bailey Lee
+% Updated for Fall 2021 by Grant McClearn
+% Commands slimmed down and simplified in Fall 2022 by Keith Schwarz
+
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathdots}
+\usepackage{braket}
+\usepackage[pdftex]{graphicx}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+\usepackage{bm}
+\usepackage{listings}
+\PassOptionsToPackage{usenames,dvipsnames}{color}  %% Allow color names
+\usepackage{pdfpages}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+\usepackage{framed}
+\usepackage{wasysym}
+\usepackage[thinlines]{easytable}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=blue,
+}
+
+\title{CS 103: Mathematical Foundations of Computing\\Problem Set \#1}
+\author{[TODO: Replace this with your name(s)]}
+\date{\today}
+
+% Running author based on https://tex.stackexchange.com/questions/68308/how-to-add-running-title-and-author#answer-68310
+\makeatletter
+\let\runauthor\@author
+\makeatother
+
+\lhead{\runauthor}
+\chead{Problem Set 1}
+\rhead{\today}
+\lfoot{}
+\cfoot{CS 103: Mathematical Foundations of Computing --- Fall 2022}
+\rfoot{\thepage}
+
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\renewcommand{\(}{\left(}
+\renewcommand{\)}{\right)}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\pd}[1]{\frac{\partial}{\partial #1}}
+\newcommand{\powerset}[1]{\wp\left(#1\right)}
+\newcommand{\suchthat}{\ \vert \ }
+\newcommand{\naturals}{\mathbb{N}}
+\newcommand{\integers}{\mathbb{Z}}
+\newcommand{\reals}{\mathbb{R}}
+\renewcommand{\qed}{\blacksquare}
+\newcommand{\accepts}{\text{ accepts }}
+\newcommand{\rejects}{\text{ rejects }}
+\newcommand{\loopson}{\text{ loops on }}
+\newcommand{\haltson}{\text{ halts on }}
+\newcommand{\encoded}[1]{\left\langle#1\right\rangle}
+\newcommand{\rlangs}{\mathbf{R}}
+\newcommand{\relangs}{\mathbf{RE}}
+\newcommand{\corelangs}{\text{co-}\mathbf{RE}}
+\newcommand{\plangs}{\mathbf{P}}
+\newcommand{\nplangs}{\mathbf{NP}}
+
+\renewcommand{\labelitemii}{$\bullet$}
+\renewcommand\qedsymbol{$\blacksquare$}
+\newenvironment{prf}{{\bfseries Proof.}}{\qedsymbol}
+\renewcommand{\emph}[1]{\textit{\textbf{#1}}}
+\newcommand{\annotate}[1]{\textit{\textcolor{blue}{#1}}}
+\usepackage{mdframed}
+\usepackage{float}
+
+\makeatother
+
+\definecolor{shadecolor}{gray}{0.95}
+
+\theoremstyle{plain}
+\newtheorem*{lem}{Lemma}
+
+\theoremstyle{plain}
+\newtheorem*{claim}{Claim}
+
+\theoremstyle{definition}
+\newtheorem*{answer}{Answer}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem*{thm}{Theorem}
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\setlength{\parindent}{0pt}
+
+\pagestyle{fancy}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\usepackage{boxedminipage}
+\newenvironment{blank}{\colorbox{shadecolor}{\strut \underline{\ \ \ \ \ }}}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\emph{Due Friday, October 7 at 2:30 pm Pacific}
+\end{center}
+
+\section*{Symbols Reference}
+Here are some symbols that may be useful for this problem set.
+
+\begin{itemize}
+\item Empty set: $\emptyset$
+\item Power set: $\powerset{S}$
+\item Set of Natural numbers: $\naturals$
+\item Union, intersection: $\cup$, $\cap$
+\item Equal, not equal: $x = x$, $x \neq y$
+\item Element-of, not element-of: $x \in S$, $y \not \in S$
+\item Subset-of, not subset-of: $A \subseteq B$, $A \not \subseteq C$
+\item Symmetric difference: $S \triangle T$
+\item Modular congruence: $x \equiv_k y$
+\item Sets: $\Set{1, 2, 3}$, $\Set{n \in \naturals \suchthat n \text{ is even}}$
+\end{itemize}
+
+LaTeX typing tips:
+\begin{itemize}
+\item Set (curly braces need an escape character backslash): ${1, 2, 3}$ (incorrect), $\{1, 2, 3\}$ or $\Set{1, 2, 3}$ (correct)
+\item Exponents (use curly braces if exponent is more than 1 character): $x^2$, $2^{3x}$
+\item Subscripts (use curly braces if subscript is more than 1 character): $x_0$, $x_{10}$
+\end{itemize}
+
+\pagebreak
+
+Problems One and Two are to be answered by editing the appropriate files
+(\texttt{MuchAdoAboutNothing.sets} and \texttt{SetTheory.cpp}, respectively).
+Do not put your answers to Problems One and Two in this file.
+
+\newpage
+
+\section*{Problem Three: Describing the World in Set Theory}
+
+i.
+\begin{shaded}
+$$C \subseteq A\& C \subseteq B \& D \subseteq A \& D \subseteq B$$
+\end{shaded}
+
+ii.
+\begin{shaded}
+$$\exists x x \in Y \| x \notin D$$
+\end{shaded}
+
+iii.
+\begin{shaded}
+$$\exists (x,y) ((x,y) \in (\wp(S) \cup \wp(F)) \| x \in \wp(S), y \in \wp(F))$$
+\end{shaded}
+
+\newpage
+
+\section*{Problem Four: Writing Direct Proofs}
+i.
+\begin{shaded}
+pick any integer $n$ such that $n$ is odd
+\end{shaded}
+
+ii.
+\begin{shaded}
+we want to show that $n^2$ is odd
+\end{shaded}
+
+iii. Fill in the blanks to Problem Four, part iii below.
+\begin{center}
+\begin{boxedminipage}{0.9\textwidth}
+\emph{Theorem:} For any integer $n$, if $n$ is odd, then $n^2$ is odd. \\
+\emph{Proof: } Pick any integer for $n$ that is odd. We want to show that $n"2$ is odd. Since $n$ is odd, there is an integer $k$ where $n = 2k + 1$.
+\annotate{(Note: When following the direct proof guidelines, the first three sentences are fairly mechanical, but now we need to exercise actual creativity. It helps to look at our want-to-show to remind ourselves of our destination on this journey. It says we want to show something about $n^2$, so we will begin with the expression $n^2$, and then apply algebra to it.)}
+Then we see that
+\begin{equation*}
+\begin{split}
+n^{2} &=  (2m + 1)^2\\
+&=  4k^2 + 4k + 1 \\
+&=  2(2k^2 + 2k) + 1.
+\end{split}
+\end{equation*}
+Therefore, there is an integer $m$ (namely, $m = 2k^2 + 2k$) such that $n^2 = 2m + 1$,
+so $n^2$ is odd \annotate{(Write the ``Want to Show'' fact here to announce that you
+reached it.)}, as required. \qedsymbol
+\end{boxedminipage}
+\end{center}
+iv.
+\begin{shaded}
+\textbf\textit{Theorem:} For any integer $n$, if $n$ is odd, then $n^2$ is odd.
+\textbf\textit{Proof:} Pick any integer $n$ such that $n$ is odd. We want to show that $n^2$ is
+odd. Since $n$ is odd, there is an integer $k$ where $n = 2k + 1$
+\begin{equation*}
+\begin{split}
+n^{2} &=  (2m + 1)^2\\
+&=  4k^2 + 4k + 1 \\
+&=  2(2k^2 + 2k) + 1.
+\end{split}
+\end{equation*}
+Therefore, there is an integer $m$ (namely, $m = 2k^2 + 2k$) such that $n^2 = 2m + 1$,
+so $n^2$ is odd, as required. \qedsymbol
+\end{shaded}
+
+\newpage
+
+\section*{Problem Five: Writing Proofs by Contrapositive}
+\begin{shaded}
+the contrapositive of the implication \textbf{if P is true, then Q is true} is the implication
+\textbf{if P is false then Q is false}. the contrapositive of an implication makes the same universal
+claim as the implication itself. this property of logical reasoning can be used to formulate
+contrapositive statements that prove the implication.
+\end{shaded}
+
+i.
+\begin{shaded}
+\textbf\textit{Theorem:} For all integers $a, b, c$, if all $a, b, and c$ are odd,
+then $a^2 + b^2 \ne c^2$
+\end{shaded}
+
+ii.
+\begin{shaded}
+if all $a, b, and c$ are odd
+\end{shaded}
+
+iii.
+\begin{shaded}
+then $a^2 + b^2 \ne c^2$
+\end{shaded}
+
+iv. Fill in the blanks to Problem Five, part iv. below.
+\begin{center}
+\begin{boxedminipage}{0.9\textwidth}
+\emph{Theorem:} For all integers $a, b, $ and $c$, if $a^{2} + b^{2} = c^{2}$, then at least one of $a, b, $ and $c$ is even. \\
+\emph{Proof: } We will prove the contrapositive of this statement, namely, for all integers $a, b, c$, if all $a, b, and c$ are odd,
+then $a^2 + b^2 \ne c^2$.  To do so, pick any odd integers for $a, b, c$. We want to show that $a^2 + b^2 \ne c^2$. \\
+Since $a, b, $ and c are odd, we know by our result from the previous problem that $a^{2}, b^{2}, $ and $c^{2}$ are odd.\\
+Because $a^{2}$ and $b^{2}$ are odd, there exist integers $p$ and $q$ such that $a^2 = p$ and $b^2 = q$. This means that
+$a^{2} + b^{2} = $ p + q $=$ an even number, which means that $a^{2} + b^{2}$ is even.\\
+However, as mentioned earlier we know that $c^{2}$ is odd. Therefore, we see that $a^2 + b^2 \ne c^2$ \annotate{(Write the ``Want to Show'' fact here to announce that you reached it.)} as required.\qedsymbol
+\end{boxedminipage}
+\end{center}
+
+v.
+\begin{shaded}
+
+\textit{don't repeat definitions, used them instead}
+\end{shaded}
+
+\newpage
+\section*{Problem Six: Writing Proofs by Contradiction}
+
+i.
+\begin{shaded}
+Write your answer to Problem Six, part i. here.
+\end{shaded}
+
+ii. Fill in the blanks to Problem Six, part ii. below.
+\begin{center}
+\begin{boxedminipage}{0.9\textwidth}
+\emph{Theorem:} For all integers $m$ and $n$, if $mn$ is even and $m$ is odd, then $n$ is even. \\
+\emph{Proof: } Assume for the sake of contradiction that \blank. Since $m$ is \blank, we know that there is an integer $k$ where \blank. Similarly, since $n$ is \blank, there is an integer $r$ where \blank. Then we see that
+\begin{equation*}
+\begin{split}
+mn &= \blank \\
+&= \blank \\
+&= \blank
+\end{split}
+\end{equation*}
+which means that $mn$ is \blank, but this is impossible because \blank.\\
+We have reached a contradiction, so our assumption must have been wrong. Therefore, if $mn$ is even and $m$ is odd, then $n$ is even.\qedsymbol
+\end{boxedminipage}
+\end{center}
+
+\newpage
+
+\section*{Problem Seven: Proving Existentially-Quantified Statements}
+
+i. Fill in the blanks to Problem Seven, part i. below.
+\begin{center}
+\begin{boxedminipage}{0.9\textwidth}
+\emph{Theorem:} There are real numbers $a$ and $b$ where $\floor{a} \cdot \ceil{b} \not= \floor{ab}$. \\ \emph{Proof: } Pick $a = $ \blank and $b = $ \blank. Then we see that
+\begin{equation*} \floor{a} \cdot \ceil{b} =
+\floor{\blank} \cdot \ceil{\blank} =
+\blank \cdot \blank =
+\blank, \end{equation*}
+but
+\begin{equation*} \floor{ab} = \floor{\blank \cdot \blank} = \floor{\blank} = \blank. \end{equation*}
+Thus \blank $\not=$ \blank, as required. \qedsymbol
+\end{boxedminipage}
+\end{center}
+
+ii. Fill in the blanks to Problem Seven, part ii. below.
+\begin{center}
+\begin{boxedminipage}{0.9\textwidth}
+\emph{Theorem:} There exist natural numbers $a, b, c,$ and $d$ such that $a > b > c > d > 0$ and $a^2 + b^2 + c^2 + d^2 = 137.$\\
+\emph{Proof: } Pick $a = $ \blank, $b = $ \blank, $c = $ \blank, and $d = $ \blank. Then we see that
+\begin{equation*} \blank > \blank > \blank > \blank > \blank \end{equation*}
+and
+\begin{equation*}
+\begin{aligned}
+\blank^2 + \blank^2 + \blank^2 + \blank^2
+&= \blank^2 + \blank^2 + \blank^2 + \blank^2 \\
+&= \blank + \blank + \blank + \blank \\ &= 137, \end{aligned} \end{equation*}
+as required. \qedsymbol
+\end{boxedminipage}
+\end{center}
+
+\newpage
+
+\section*{Problem Eight: Proving Mixed Universal and Existential Statements}
+i. Fill in the blanks to Problem Eight, part i. below.
+
+\begin{center}
+\begin{boxedminipage}{0.9\textwidth}
+\emph{Theorem:} For all integers $x$ and $y$ and any integer $k$, if $x \equiv_{k} y$, then $y \equiv_{k} x$. \\
+\emph{Proof: } Let $x, y, $ and $k$ be arbitrary integers where $x \equiv_{k} y$. We want to show that $y \equiv_{k} x$.\\
+To do so, we will show that there is an integer $q$ where \blank. \annotate{(Notice that after stating our want-to-show as usual for a direct proof, we expanded the want-to-show to be more specific about what it means to show that. Now our want-to-show has the form of an existential (``...there exists an integer $q$...''). This is an important structural trait to focus in on. It means that in the body of the proof, we are going to have to demonstrate that such a $q$ exists very concretely by proposing a specific value for $q$.)}
+Because $x \equiv_{k} y$, we know there is an integer $r$ such that \blank.\\
+Now, let $q = $ \blank. \annotate{(Here it is, our announcement of the value we are proposing for $q$. Next, we need to justify to the reader that our choice works. What follows is that justification. Always do it in this order: first announce the value, then justify.)} Then we see that
+\begin{equation*}
+\begin{split}
+y &= \blank \annotate{(Do not write x + qk here)}\\
+&= \blank \\
+&= x + qk
+\end{split}
+\end{equation*}
+which is what we needed to show. \qedsymbol
+\end{boxedminipage}
+\end{center}
+
+ii.
+\begin{shaded}
+Write your answer to Problem Eight, part ii. here.
+\end{shaded}
+
+iii.
+\begin{shaded}
+Write your answer to Problem Eight, part iii. here.
+\end{shaded}
+
+\newpage
+
+\section*{Problem Nine: Proof Critiques}
+i.
+\begin{shaded}
+Write your answer to Problem Nine, part i. here.
+\end{shaded}
+
+ii.
+\begin{shaded}
+Write your answer to Problem Nine, part ii. here.
+\end{shaded}
+
+iii.
+\begin{shaded}
+Write your answer to Problem Nine, part iii. here.
+\end{shaded}
+
+\newpage
+
+\section*{Problem Ten: All Squared Away}
+
+i.
+
+\begin{shaded}
+
+\begin{itemize}
+\item When $n = 3$, we can write $n = 2 \cdot \blank + 1$, and one $m$ that works is \blank.
+\item When $n = 5$, we can write $n = 2 \cdot \blank + 1$, and one $m$ that works is \blank.
+\item When $n = 7$, we can write $n = 2 \cdot \blank + 1$, and one $m$ that works is \blank.
+\item When $n = 9$, we can write $n = 2 \cdot \blank + 1$, and one $m$ that works is 16.
+\item When $n = 11$, we can write $n = 2 \cdot \blank + 1$, and one $m$ that works is \blank.
+\end{itemize}
+
+\end{shaded}
+
+ii.
+\begin{shaded}
+
+When $n = 2k + 1$, pick $m = \blank$.
+
+\end {shaded}
+
+iii.
+
+\begin{shaded}
+Write your answer to Problem Ten, Part (iii) here.
+\end{shaded}
+
+\newpage
+
+\section*{Problem Eleven: Quarter-Squares}
+\begin{shaded}
+Write your answer to Problem Eleven here.
+\end{shaded}
+
+\newpage
+
+\section*{Optional Fun Problem: Infinite Deviation}
+\begin{shaded}
+(Optionally) Write your answer to the Optional Fun Problem here.
+\end{shaded}
+
+\end{document}

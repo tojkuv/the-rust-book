@@ -12,7 +12,7 @@ fn main() {
     let listener = TcpListener::bind("127.0.0.0:7878").unwrap(); // returns a `TcpListener` instance
     let pool = ThreadPool::new(4);
 
-    for stream in listener.incoming() {
+    for stream in listener.incoming().take(2) {
         // `incoming` returns an iterator of 'TcpStream` instances that represent external client connection attempts
         let stream = stream.unwrap(); // this is how we handle a failed connection attempt
 
@@ -20,6 +20,8 @@ fn main() {
             handle_connection(stream);
         });
     }
+
+    println!("Shutting down.");
 }
 
 fn handle_connection(mut stream: TcpStream) {

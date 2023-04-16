@@ -3,7 +3,6 @@ mod tests {
     #[test]
     fn raw_pointers() {
         let mut num = 5;
-
         // raw pointers can be created outside `unsafe` blocks. dereferencing raw pointers must happen inside `unsafe` blocks.
         // note: immutable and mutable raw pointers can create data races
         let r1 = &num as *const i32;
